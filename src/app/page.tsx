@@ -1,7 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-
+import fetchMetersList from "@/utils/api/meters";
+import fetchReadingsList from "@/utils/api/readings";
 export default function Home() {
+  fetchMetersList();
+  fetchReadingsList();
   return (
     <div className={styles.page}>
       <main className={styles.main}>
