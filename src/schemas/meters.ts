@@ -1,5 +1,5 @@
 import * as z from "zod";
-
+import { ReadingType } from "./readings";
 export const MeterSchema = z.object({
   id: z.string(),
   label: z.string().min(1),
@@ -12,3 +12,6 @@ export const MeterSchema = z.object({
 });
 
 export type MeterType = z.infer<typeof MeterSchema>;
+export type MeterWithReadingsType = MeterType & {
+  latestReading?: ReadingType;
+};

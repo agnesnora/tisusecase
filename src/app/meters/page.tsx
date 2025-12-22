@@ -1,7 +1,9 @@
 import React from "react";
 
+import FilteredTable from "../components/FilteredTable";
+
 const MetersListPage = () => {
-  return <div>cilimetzerslist</div>;
+  return <FilteredTable />;
 };
 
 export default MetersListPage;
