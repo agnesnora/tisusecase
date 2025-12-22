@@ -1,7 +1,18 @@
-import React from "react";
+import { fetchMeterById } from "@/utils/api/meters";
+import { fetchReadingsByMeterId } from "@/utils/api/readings";
+import MeterDetailsClient from "@/app/components/MeterDetailsClient";
 
-const MetersDefaultPage = () => {
-  return <div>cili id</div>;
-};
+export default async function MeterDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-export default MetersDefaultPage;
+  const [meter, readings] = await Promise.all([
+    fetchMeterById(id),
+    fetchReadingsByMeterId(id),
+  ]);
+
+  return <MeterDetailsClient meter={meter} readings={readings} />;
+}

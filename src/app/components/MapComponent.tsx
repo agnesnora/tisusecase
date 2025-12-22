@@ -61,7 +61,6 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
           </Marker>
         ))}
 
-        {/* Elektromos mérők - piros markerek */}
         {electricityMeters.map((meter) => (
           <Marker
             key={meter.id}

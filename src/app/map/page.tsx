@@ -1,8 +1,7 @@
 import React from "react";
-import fetchMetersList from "@/utils/api/meters";
+import { fetchMetersList } from "@/utils/api/meters";
 import MapWrapper from "../components/MapWrapper";
 
-import "leaflet/dist/leaflet.css";
 import { separateMetersByType } from "@/utils/meterUtils";
 
 const MapPage = async () => {

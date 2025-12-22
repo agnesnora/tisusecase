@@ -14,8 +14,8 @@ import {
   SortingState,
   ColumnFiltersState,
 } from "@tanstack/react-table";
-import fetchMetersList from "@/utils/api/meters";
-import fetchReadingsList from "@/utils/api/readings";
+import { fetchMetersList } from "@/utils/api/meters";
+import { fetchReadingsList } from "@/utils/api/readings";
 import { MeterType, MeterWithReadingsType } from "@/schemas/meters";
 import { ReadingType } from "@/schemas/readings";
 import { combineMetersWithLatestReading } from "@/utils/combineMetersWithLatestReading";
@@ -161,7 +161,11 @@ const FilteredTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} onClick={() => handleRowClick(row.original.id!)}>
+            <tr
+              key={row.id}
+              onClick={() => handleRowClick(row.original.id!)}
+              style={{ cursor: "pointer" }}
+            >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
