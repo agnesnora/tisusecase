@@ -22,3 +22,8 @@ export const ReadingSchema = z.object({
 });
 
 export type ReadingType = z.infer<typeof ReadingSchema>;
+
+export type ReadingWithConsumption = ReadingType & {
+  consumption: number;
+  date: string;
+};

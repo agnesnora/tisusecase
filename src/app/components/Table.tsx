@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 import {
   ColumnDef,
   flexRender,
   useReactTable,
   getCoreRowModel,
-  SortingState,
 } from "@tanstack/react-table";
 
 import { ReadingType } from "@/schemas/readings";

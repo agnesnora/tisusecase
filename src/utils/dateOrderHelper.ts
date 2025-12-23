@@ -22,3 +22,13 @@ export const orderReadingsDesc = (
   }
   return monthOrder[b.month] - monthOrder[a.month];
 };
+
+export const orderReadingsAsc = (
+  a: { year: number; month: string },
+  b: { year: number; month: string }
+) => {
+  if (a.year !== b.year) {
+    return a.year - b.year;
+  }
+  return monthOrder[a.month] - monthOrder[b.month];
+};
