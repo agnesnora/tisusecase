@@ -1,0 +1,30 @@
+.container {
+  width: 20%;
+  padding: 2rem;
+  h1 {
+    text-transform: uppercase;
+    font-family: var(--font-logo);
+    font-weight: 400;
+  }
+  nav {
+    margin-top: 3rem;
+    a {
+      display: block;
+      text-decoration: none;
+      color: var(--color-primaryText);
+      font-family: var(--font-inter);
+      font-size: 1.2rem;
+
+      .linkContent {
+        padding: 1rem;
+        margin: 1rem 0;
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        .icon {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}

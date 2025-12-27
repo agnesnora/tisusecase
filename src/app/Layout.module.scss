@@ -1,0 +1,11 @@
+.appContainer {
+  margin: 0;
+  background-color: var(--color-secondaryBg);
+  display: flex;
+  height: 100vh;
+  .mainContainer {
+    background-color: var(--color-primaryBg);
+    width: 100%;
+    padding: 2rem;
+  }
+}
