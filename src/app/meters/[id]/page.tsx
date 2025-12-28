@@ -1,5 +1,4 @@
 import { fetchMeterById } from "@/utils/api/meters";
-import { fetchReadingsByMeterId } from "@/utils/api/readings";
 import MeterDetailsClient from "@/app/components/MeterDetailsClient";
 
 export default async function MeterDetailPage({
@@ -9,10 +8,7 @@ export default async function MeterDetailPage({
 }) {
   const { id } = await params;
 
-  const [meter, readings] = await Promise.all([
-    fetchMeterById(id),
-    fetchReadingsByMeterId(id),
-  ]);
+  const meter = await fetchMeterById(id);
 
-  return <MeterDetailsClient meter={meter} readings={readings} />;
+  return <MeterDetailsClient meter={meter} />;
 }

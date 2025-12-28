@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import styles from "./Layout.module.scss";
 
 import Providers from "@/app/providers/Providers";
+import { ToastContainer } from "react-toastify";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -49,6 +50,7 @@ export default function RootLayout({
               <main>{children}</main>
             </div>
           </div>
+          <ToastContainer />
         </Providers>
       </body>
     </html>

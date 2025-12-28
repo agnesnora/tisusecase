@@ -1,26 +1,166 @@
 "use client";
 
 import { MeterType } from "@/schemas/meters";
-import { ReadingType } from "@/schemas/readings";
-import React from "react";
+import {
+  AddReadingSchema,
+  ReadingType,
+  AddReadingType,
+  EditType,
+} from "@/schemas/readings";
+
+import React, { useState } from "react";
 import Table from "./Table";
-import { useMemo } from "react";
+import EditReadingModal from "./EditReadingModal";
 import { orderReadingsDesc } from "@/utils/dateOrderHelper";
 import { calculateMeterStats } from "@/utils/meterUtils";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
+import {
+  deleteReadingById,
+  fetchReadingsByMeterId,
+  addReading,
+  editReading,
+} from "@/utils/api/readings";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getAvailableDates } from "@/utils/availableMonths";
+import { toast } from "react-toastify";
 
 interface MeterDetailsClientProps {
   meter: MeterType;
-  readings: ReadingType[];
 }
 
-const MeterDetailsClient = ({ meter, readings }: MeterDetailsClientProps) => {
-  const stats = calculateMeterStats(readings);
-  console.log("Stats:", stats);
-  console.log("Average:", stats.average);
+const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
+  const queryClient = useQueryClient();
+  const [editingReading, setEditingReading] = useState<ReadingType | null>(
+    null
+  );
 
-  const sortedReadings = useMemo(() => {
-    return [...readings].sort(orderReadingsDesc);
-  }, [readings]);
+  const {
+    data: readings = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["readings", meter.id],
+    queryFn: () => fetchReadingsByMeterId(meter.id),
+  });
+
+  const stats = calculateMeterStats(readings);
+
+  const deleteReadingMutation = useMutation({
+    mutationFn: deleteReadingById,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
+    },
+  });
+
+  const addReadingMutation = useMutation({
+    mutationFn: addReading,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
+      reset();
+      toast.success("Reading saved successfully!");
+    },
+    onError: () => {
+      toast.error("Failed to save reading. Please try again.");
+    },
+  });
+
+  const editReadingMutation = useMutation({
+    mutationFn: ({ id, data }: { id: string; data: EditType }) =>
+      editReading(id, data),
+    onSuccess: (partialResponse, variables) => {
+      // Megkeressük az eredeti reading-et
+      const originalReading = readings.find((r) => r.id === variables.id);
+
+      if (originalReading) {
+        // Teljes objektum létrehozása
+        const updatedReading: ReadingType = {
+          ...originalReading,
+          value: variables.data.value,
+        };
+
+        // Cache frissítése a teljes objektummal
+        queryClient.setQueryData(
+          ["readings", meter.id],
+          (oldData: ReadingType[]) =>
+            oldData?.map((reading) =>
+              reading.id === variables.id ? updatedReading : reading
+            ) || []
+        );
+      }
+    },
+  });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(AddReadingSchema),
+  });
+
+  const availableDates = getAvailableDates(readings);
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const [year, month] = e.target.value.split("|");
+    setValue("year", parseInt(year));
+    setValue(
+      "month",
+      month as
+        | "JAN"
+        | "FEB"
+        | "MAR"
+        | "APR"
+        | "MAY"
+        | "JUN"
+        | "JUL"
+        | "AUG"
+        | "SEP"
+        | "OCT"
+        | "NOV"
+        | "DEC"
+    );
+  };
+
+  const handleAddReading = (data: AddReadingType) => {
+    const latestReading = [...readings].sort(orderReadingsDesc)[0];
+    if (latestReading && data.value < latestReading.value) {
+      setError("value", {
+        type: "manual",
+        message: `Value cannot be lower than the previous reading (${latestReading.value})`,
+      });
+      toast.warning("Validation error: Please check the value!");
+      return;
+    }
+    const newReading = {
+      ...data,
+      meterId: meter.id,
+    };
+    addReadingMutation.mutate(newReading);
+  };
+
+  const handleEdit = (reading: ReadingType) => {
+    setEditingReading(reading);
+  };
+
+  const handleSaveEdit = (id: string, newValue: number) => {
+    editReadingMutation.mutate({
+      id,
+      data: { value: newValue },
+    });
+    setEditingReading(null);
+  };
+
+  const handleDelete = (reading: ReadingType) => {
+    deleteReadingMutation.mutate(reading.id);
+  };
+  const sortedReadings = [...readings].sort(orderReadingsDesc);
+
+  if (isLoading) return <div>Loading readings...</div>;
+  if (error) return <div>Error loading readings</div>;
+
   return (
     <div>
       <h1>Meter Details</h1>
@@ -32,8 +172,53 @@ const MeterDetailsClient = ({ meter, readings }: MeterDetailsClientProps) => {
           Location: {meter.location.lat}, {meter.location.lon}
         </p>
       </div>
+      <div>
+        <form onSubmit={handleSubmit(handleAddReading)}>
+          {availableDates.length > 0 ? (
+            <>
+              <select onChange={handleDateChange} defaultValue="">
+                <option value="" disabled>
+                  Select month
+                </option>
+                {availableDates.map((date) => (
+                  <option
+                    key={`${date.year}-${date.month}`}
+                    value={`${date.year}|${date.month}`}
+                  >
+                    {date.label}
+                  </option>
+                ))}
+              </select>
 
-      <Table data={sortedReadings} unit={meter.unit} />
+              {/* Hidden input fields for Zod validation and react hook form */}
+              <input
+                type="hidden"
+                {...register("year", { valueAsNumber: true })}
+              />
+              <input type="hidden" {...register("month")} />
+
+              <input
+                {...register("value", { valueAsNumber: true })}
+                type="number"
+                step="any"
+                placeholder="Meters"
+              />
+              <button type="submit" disabled={addReadingMutation.isPending}>
+                Add reading
+              </button>
+            </>
+          ) : (
+            <p>No readings can be added at this time.</p>
+          )}
+          {errors.value && <span>{errors.value.message}</span>}
+        </form>
+      </div>
+      <Table
+        data={sortedReadings}
+        unit={meter.unit}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
       <div>
         <h3>Statistics</h3>
         <p>
@@ -50,6 +235,14 @@ const MeterDetailsClient = ({ meter, readings }: MeterDetailsClientProps) => {
           {stats.lowestMonth?.year})
         </p>
       </div>
+      <EditReadingModal
+        currentReading={editingReading}
+        isOpen={!!editingReading}
+        onClose={() => setEditingReading(null)}
+        onSave={handleSaveEdit}
+        unit={meter.unit}
+        allReadings={readings}
+      />
     </div>
   );
 };

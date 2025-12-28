@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-
+import { TbTrash, TbEdit } from "react-icons/tb";
 import {
   ColumnDef,
   flexRender,
@@ -14,8 +14,10 @@ import { ReadingType } from "@/schemas/readings";
 interface ReadingsTableProps {
   data: ReadingType[];
   unit: string;
+  onEdit: (reading: ReadingType) => void;
+  onDelete: (reading: ReadingType) => void;
 }
-const Table = ({ data, unit }: ReadingsTableProps) => {
+const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
   const columns = useMemo<ColumnDef<ReadingType>[]>(
     () => [
       { accessorKey: "year", header: "Year" },
@@ -26,8 +28,27 @@ const Table = ({ data, unit }: ReadingsTableProps) => {
         cell: (info) => `${info.getValue()} ${unit}`,
       },
       { header: "Unit", cell: () => unit },
+      {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+          const isLatest = row.index === 0;
+          return (
+            <div>
+              <button onClick={() => onEdit(row.original)}>
+                <TbEdit />
+              </button>
+              {isLatest && (
+                <button onClick={() => onDelete(row.original)}>
+                  <TbTrash />
+                </button>
+              )}
+            </div>
+          );
+        },
+      },
     ],
-    [unit]
+    [unit, onEdit, onDelete]
   );
 
   // const [sorting, setSorting] = useState<SortingState>([]);
