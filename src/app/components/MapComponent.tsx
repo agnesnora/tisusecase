@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
 import { MeterType } from "@/schemas/meters";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -7,8 +8,10 @@ import "leaflet/dist/leaflet.css"; // CSS import fontos
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
+import { LuZap, LuFlame } from "react-icons/lu";
+import { useTheme } from "./ThemeProvider";
+import styles from "../styles/MapComponent.module.scss";
 
-// Default marker ikon fix
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -36,15 +39,42 @@ const FitMapBounds = ({ gasMeters, electricityMeters }: MapComponentProps) => {
 
   return null;
 };
+// Gáz ikon létrehozása (Narancssárga)
+const gasIconHTML = renderToStaticMarkup(
+  <div className={`${styles.icon} ${styles.gas}`}>
+    <LuFlame size={20} />
+  </div>
+);
+
+const customGasIcon = L.divIcon({
+  html: gasIconHTML,
+  className: "custom-div-icon",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+});
+
+const elecIconHTML = renderToStaticMarkup(
+  <div className={`${styles.icon} ${styles.electric}`}>
+    <LuZap size={20} />
+  </div>
+);
+
+const customElecIcon = L.divIcon({
+  html: elecIconHTML,
+  className: "custom-div-icon",
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+});
 const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
+  const { theme } = useTheme();
   return (
     <div>
       <MapContainer
         center={[47.5, 19.0]}
         zoom={7}
-        style={{ height: "400px", width: "100%" }}
+        className={styles.mapContainer}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
         <FitMapBounds
           gasMeters={gasMeters}
@@ -54,10 +84,9 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
           <Marker
             key={meter.id}
             position={[meter.location.lat, meter.location.lon]}
+            icon={customGasIcon}
           >
-            <Popup>
-              {meter.label} - Gáz ({meter.unit})
-            </Popup>
+            <Popup className={styles.popUp}>{meter.label}</Popup>
           </Marker>
         ))}
 
@@ -65,10 +94,9 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
           <Marker
             key={meter.id}
             position={[meter.location.lat, meter.location.lon]}
+            icon={customElecIcon}
           >
-            <Popup>
-              {meter.label} - Elektromos ({meter.unit})
-            </Popup>
+            <Popup className={styles.popUp}>{meter.label}</Popup>
           </Marker>
         ))}
       </MapContainer>

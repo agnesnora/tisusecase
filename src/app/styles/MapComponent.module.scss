@@ -1,0 +1,42 @@
+.mapContainer {
+  height: 90vh;
+  width: 100%;
+  .icon {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gas {
+    color: var(--color-primaryText);
+    background-color: var(--color-m8);
+
+    border: 2px solid var(--color-m8);
+  }
+  .electric {
+    color: var(--color-primaryText);
+    background-color: var(--color-btnBg);
+    border: 2px solid var(--color-btnBg);
+  }
+  .popUp {
+    :global(.leaflet-popup-content-wrapper) {
+      background-color: var(--color-secondaryBg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      font-family: var(--font-primary);
+    }
+
+    :global(.leaflet-popup-content) {
+      margin: 0.8rem 1rem;
+      font-size: 0.9rem;
+      color: var(--color-primaryText);
+      font-weight: 500;
+    }
+
+    :global(.leaflet-popup-tip) {
+      background-color: var(--color-secondaryBg);
+    }
+  }
+}

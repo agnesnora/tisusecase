@@ -8,7 +8,7 @@ import { BiSolidDashboard } from "react-icons/bi";
 const Navbar = () => {
   return (
     <div className={styles.container}>
-      <h1>Agnesnora Studio.</h1>
+      <h1>Agnesnora<br/>Studio.</h1>
       <nav>
         {" "}
         <Link href="/dashboard">

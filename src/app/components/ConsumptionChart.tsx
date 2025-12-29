@@ -10,48 +10,54 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-
+import styles from "../styles/ConsumptionChart.module.scss";
 interface ConsumptionChartProps {
   data: {
     date: string;
     meters: {
       meterId: string;
-      consumption: number; // meterLabel-t töröld
+      consumption: number;
     }[];
     total: number;
   }[];
 }
+const colors = [
+  "var(--color-m1)",
+  "var(--color-m2)",
+  "var(--color-m3)",
+  "var(--color-m4)",
+  "var(--color-m5)",
+  "var(--color-m6)",
+  "var(--color-m7)",
+  "var(--color-m8)",
+  "var(--color-m9)",
+  "var(--color-m10)",
+];
 
 const ConsumptionChart = ({ data }: ConsumptionChartProps) => {
   return (
-    <BarChart
-      style={{
-        width: "100%",
-        maxWidth: "700px",
-        maxHeight: "70vh",
-        aspectRatio: 1.618,
-      }}
-      responsive
-      data={data}
-      margin={{
-        top: 20,
-        right: 0,
-        left: 0,
-        bottom: 5,
-      }}
-    >
+    <BarChart responsive data={data} className={styles.barChart}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="date" />
       <YAxis width="auto" />
-      <Tooltip />
+      <Tooltip
+        contentStyle={{
+          backgroundColor: "var(--color-primaryBg)",
+          border: "none",
+          borderRadius: "8px",
+        }}
+      />
       <Legend />
       {/* Dinamikusan generált Bar-ok minden meter-hez */}
-      {data[0]?.meters.map((_, index) => (
+      {data[0]?.meters.map((meter, index) => (
         <Bar
+          className={styles.bar}
           key={index}
+          name={meter.meterId}
           dataKey={`meters.${index}.consumption`}
           stackId="a"
-          fill={`hsl(${index * 60}, 70%, 50%)`}
+          fill={colors[index % colors.length]}
+          style={{ filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))" }}
         />
       ))}
     </BarChart>

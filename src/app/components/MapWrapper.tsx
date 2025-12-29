@@ -1,17 +1,22 @@
-'use client'
-import dynamic from 'next/dynamic'
-import { MeterType } from '@/schemas/meters'
+"use client";
+import dynamic from "next/dynamic";
+import { MeterType } from "@/schemas/meters";
 
-const MapComponent = dynamic(() => import('./MapComponent'), {
+const MapComponent = dynamic(() => import("./MapComponent"), {
   ssr: false,
-  loading: () => <div>Térkép betöltése...</div>
-})
+  loading: () => <div>Loading Map...</div>,
+});
 
 interface MapWrapperProps {
-  gasMeters: MeterType[]
-  electricityMeters: MeterType[]
+  gasMeters: MeterType[];
+  electricityMeters: MeterType[];
 }
 
-export default function MapWrapper({ gasMeters, electricityMeters }: MapWrapperProps) {
-  return <MapComponent gasMeters={gasMeters} electricityMeters={electricityMeters} />
+export default function MapWrapper({
+  gasMeters,
+  electricityMeters,
+}: MapWrapperProps) {
+  return (
+    <MapComponent gasMeters={gasMeters} electricityMeters={electricityMeters} />
+  );
 }

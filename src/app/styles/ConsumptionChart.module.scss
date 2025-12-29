@@ -1,0 +1,10 @@
+.barChart {
+  width: 100%;
+  max-width: 70%;
+  max-height: 50%;
+  aspect-ratio: 1.618;
+  background-color: var(--color-chartBg);
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}

@@ -1,0 +1,47 @@
+.header {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-primary);
+  color: var(--color-secondaryText);
+
+  padding: 2rem;
+  .title {
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-weight: 300;
+    }
+  }
+  .profileContainer {
+    display: flex;
+    align-items: center;
+    .themeButton {
+      background-color: transparent;
+      padding: 0.5rem;
+      border-radius: 100;
+
+      border: none;
+      cursor: pointer;
+      &:hover {
+        border: solid 2px var(--color-btnBg);
+      }
+    }
+    .profileInfo {
+      h4 {
+        font-weight: 600;
+      }
+      p {
+        font-weight: 200;
+        margin-top: 0.1rem;
+        font-size: 0.9rem;
+      }
+    }
+    .profilePic {
+      border-radius: 100;
+      margin: 0 0.8rem;
+    }
+  }
+}

@@ -13,15 +13,26 @@ body {
   --color-primaryBg: #fdfaf7;
   --color-secondaryBg: #fdeced;
   --color-primaryText: #3b3c36;
-  --color-secondaryText: #3b3c36;
+  --color-secondaryText: #1c1c1c;
   --color-btnBg: #f6bd60;
   --color-btnText: #3b3c36;
-  --color-chartBg: var(--color-secondaryBg);
+  --color-chartBg: #fff;
   --color-tableHeaderBg: #dfecea;
   --color-tableRow: var(--color-secondaryBg);
   --color-tableHoverRow: #ebebea;
   --color-linkText: var(--color-primaryText);
   --color-linkActiveBg: var(--color-btnBg);
+
+  --color-m1: #ff4d6d;
+  --color-m2: #ffb703;
+  --color-m3: #219ebc;
+  --color-m4: #52b788;
+  --color-m5: #9b5de5;
+  --color-m6: #00bbf9;
+  --color-m7: #f15bb5;
+  --color-m8: #fb5607;
+  --color-m9: #dfecea;
+  --color-m10: #8395a7;
 }
 [data-theme="dark"] {
   --color-primaryBg: #1c1c1c;
@@ -31,6 +42,7 @@ body {
   --color-btnBg: #f6bd60;
   --color-btnText: #3b3c36;
   --color-chartBg: var(--color-secondaryBg);
+  --color-chartBg: #292929;
   --color-tableHeaderBg: #dfecea;
   --color-tableRow: var(--color-secondaryBg);
   --color-tableHoverRow: #ebebea;

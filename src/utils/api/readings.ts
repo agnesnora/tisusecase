@@ -3,7 +3,7 @@ import { ReadingType, AddReadingType, EditType } from "@/schemas/readings";
 
 export const fetchReadingsList = async (): Promise<ReadingType[]> => {
   const response = await apiClient.get("/readings");
-  console.log(response.data);
+
   return response.data;
 };
 
@@ -28,7 +28,10 @@ export const addReading = async (
   return response.data;
 };
 
-export const editReading = async (id: string, data: EditType): Promise<ReadingType> => {
+export const editReading = async (
+  id: string,
+  data: EditType
+): Promise<ReadingType> => {
   const response = await apiClient.put(`/readings/${id}`, data);
   return response.data;
 };
