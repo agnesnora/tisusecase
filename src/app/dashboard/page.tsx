@@ -15,10 +15,10 @@ const DashboardPage = async () => {
 
   return (
     <div className={styles.container}>
-      <h1>Gas Consumption</h1>
+      <h2>Gas Consumption</h2>
       <ConsumptionChart data={consumptionData.gas} />
 
-      <h1>Electricity Consumption</h1>
+      <h2>Electricity Consumption</h2>
       <ConsumptionChart data={consumptionData.electricity} />
     </div>
   );

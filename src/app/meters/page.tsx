@@ -1,9 +1,13 @@
 import React from "react";
 
 import FilteredTable from "../components/FilteredTable";
-
+import styles from "./page.module.scss";
 const MetersListPage = () => {
-  return <FilteredTable />;
+  return (
+    <div className={styles.container}>
+      <FilteredTable />
+    </div>
+  );
 };
 
 export default MetersListPage;

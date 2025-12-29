@@ -1,0 +1,105 @@
+.container {
+  .selectWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  table {
+    background-color: var(--color-chartBg);
+    font-family: var(--color-inter);
+    font-weight: 300;
+    // text-align: center;
+    border-radius: 8px;
+    border-collapse: collapse;
+    width: 100%;
+    overflow: hidden;
+
+    th,
+    td {
+      padding: 1.2rem 1.25rem;
+      text-align: center;
+      border: 1px solid var(--color-mainBg);
+      color: var(--color-primaryText);
+    }
+
+    thead {
+      background-color: var(--color-tableHeaderBg);
+
+      th {
+        text-transform: uppercase;
+        color: var(--color-primaryText);
+        font-weight: 600;
+        // font-family: $inria;
+      }
+      tr:nth-child(even) {
+        background-color: var(--color-mainBg);
+        padding: 0;
+        color: var(--color-primaryText);
+      }
+    }
+
+    tbody {
+      //   tr:nth-child(odd) {
+      //     background-color: $inputBackground;
+      //   }
+      tr {
+        &:hover {
+          background-color: var(--color-tableHoverRow);
+          color: var(--color-primaryText);
+        }
+      }
+    }
+  }
+}
+
+.select {
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  background-color: var(--color-primaryBg);
+  border: 1px solid var(--color-tableHeaderBg);
+  border-radius: 8px;
+  color: var(--color-primaryText);
+}
+
+.filterRow {
+  td {
+    padding: 0.5rem 1.25rem !important;
+  }
+  .typeSelect {
+    width: 100%;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-btnBg);
+    }
+
+    option {
+      background-color: var(--color-primaryBg);
+      color: var(--color-primaryText);
+      text-align: center;
+    }
+  }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  button {
+    background-color: var(--color-chartBg);
+    padding: 0.5rem;
+    border: 1px solid var(--color-tableHeaderBg);
+    color: var(--color-primaryText);
+  }
+  .spanFlex {
+    display: flex;
+    align-items: center;
+  }
+  .activePage {
+    background-color: var(--color-secondaryBg);
+  }
+}

@@ -2,7 +2,13 @@
 
 import React, { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { FaSortAlphaUp, FaSortAlphaDown, FaRedo } from "react-icons/fa";
+
+import {
+  TiArrowUnsorted,
+  TiArrowSortedUp,
+  TiArrowSortedDown,
+} from "react-icons/ti";
+
 import {
   ColumnDef,
   flexRender,
@@ -20,6 +26,9 @@ import { MeterType, MeterWithReadingsType } from "@/schemas/meters";
 import { ReadingType } from "@/schemas/readings";
 import { combineMetersWithLatestReading } from "@/utils/combineMetersWithLatestReading";
 import { useRouter } from "next/navigation";
+import styles from "../styles/FilteredTable.module.scss";
+import { getTypeStyle, MeterTypeEnum } from "@/utils/meterTypeStyles";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const FilteredTable = () => {
   const metersQuery = useQuery<MeterType[]>({
@@ -40,7 +49,16 @@ const FilteredTable = () => {
         accessorFn: (row) => `${row.location.lat}, ${row.location.lon}`,
         id: "location",
       },
-      { accessorKey: "type", header: "Type", enableSorting: true },
+      {
+        accessorKey: "type",
+        header: "Type",
+        enableSorting: true,
+        cell: ({ row }) => {
+          const type = row.original.type as MeterTypeEnum;
+          const typeStyle = getTypeStyle(type);
+          return <span style={typeStyle}>{type}</span>;
+        },
+      },
       {
         header: "Latest Reading",
         accessorFn: (row) => {
@@ -92,7 +110,23 @@ const FilteredTable = () => {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
+      <div className={styles.selectWrapper}>
+        {" "}
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => {
+            table.setPageSize(Number(e.target.value));
+          }}
+          className={`${styles.select} ${styles.pageSelect}`}
+        >
+          {[5, 10, 20].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>{" "}
+      </div>
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -101,63 +135,56 @@ const FilteredTable = () => {
                 <th key={header.id}>
                   <div
                     onClick={header.column.getToggleSortingHandler()}
-                    title={
-                      header.column.getCanSort()
-                        ? header.column.getNextSortingOrder() === "asc"
-                          ? "Sort ascending"
-                          : header.column.getNextSortingOrder() === "desc"
-                          ? "Sort descending"
-                          : "Clear sort"
-                        : undefined
-                    }
                     style={{
-                      display: "inline-block",
-                      width: "calc(100% - 10px)",
-                      cursor: "pointer",
+                      cursor: header.column.getCanSort()
+                        ? "pointer"
+                        : "default",
                     }}
                   >
-                    {" "}
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()
-                    )}{" "}
-                    {header.column.id === "type" && (
-                      <div
-                        className="column-filter"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        {/* Az e.stopPropagation() megakadályozza, hogy a select kattintása rendezze a táblázatot */}
-                        <select
-                          value={
-                            (header.column.getFilterValue() as string) ?? ""
-                          }
-                          onChange={(e) => {
-                            header.column.setFilterValue(
-                              e.target.value || undefined
-                            );
-                          }}
-                          className="type-select"
-                        >
-                          <option value="">All Types</option>
-                          <option value="electricity">Electricity</option>
-                          <option value="gas">Gas</option>
-                        </select>
-                      </div>
                     )}
                     {header.column.getCanSort() && (
                       <span>
-                        {header.column.getIsSorted() === "asc"
-                          ? "↑"
-                          : header.column.getIsSorted() === "desc"
-                          ? "↓"
-                          : "↕"}
+                        {header.column.getIsSorted() === "asc" ? (
+                          <TiArrowSortedUp />
+                        ) : header.column.getIsSorted() === "desc" ? (
+                          <TiArrowSortedDown />
+                        ) : (
+                          <TiArrowUnsorted />
+                        )}
                       </span>
                     )}
                   </div>
                 </th>
               ))}
             </tr>
-          ))}
+          ))}{" "}
+          <tr className={styles.filterRow}>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              {" "}
+              <select
+                value={
+                  (table.getColumn("type")?.getFilterValue() as string) ?? ""
+                }
+                onChange={(e) => {
+                  table
+                    .getColumn("type")
+                    ?.setFilterValue(e.target.value || undefined);
+                }}
+                className={`${styles.select} ${styles.typeSelect}`}
+              >
+                <option value="">All Types</option>
+                <option value="electricity">Electricity</option>
+                <option value="gas">Gas</option>
+              </select>
+            </td>
+            <td></td> {/* Latest Reading oszlop - üres */}
+          </tr>
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
@@ -175,37 +202,43 @@ const FilteredTable = () => {
           ))}
         </tbody>
       </table>
-      <select
-        value={table.getState().pagination.pageSize}
-        onChange={(e) => {
-          table.setPageSize(Number(e.target.value));
-        }}
-      >
-        {[5, 10, 20].map((pageSize) => (
-          <option key={pageSize} value={pageSize}>
-            Show {pageSize}
-          </option>
+      <div className={styles.pagination}>
+        <button
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+          className={styles.paginationButton}
+        >
+          <span className={styles.spanFlex}>
+            {" "}
+            <BsArrowLeft /> Previous
+          </span>
+        </button>
+
+        {Array.from({ length: table.getPageCount() }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => table.setPageIndex(i)}
+            className={`${styles.paginationButton} ${
+              i === table.getState().pagination.pageIndex
+                ? styles.activePage
+                : ""
+            }`}
+          >
+            {i + 1}
+          </button>
         ))}
-      </select>{" "}
-      <div>Page</div>
-      <strong>
-        {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-      </strong>{" "}
-      <button
-        className="border rounded p-1"
-        onClick={() => table.previousPage()}
-        disabled={!table.getCanPreviousPage()}
-      >
-        {"<"}
-      </button>
-      <div> {table.getState().pagination.pageIndex + 1}</div>
-      <button
-        className="border rounded p-1"
-        onClick={() => table.nextPage()}
-        disabled={!table.getCanNextPage()}
-      >
-        {">"}
-      </button>
+
+        <button
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+          className={styles.paginationButton}
+        >
+          <span className={styles.spanFlex}>
+            <BsArrowRight />
+            Next
+          </span>
+        </button>
+      </div>
     </div>
   );
 };
