@@ -1,6 +1,6 @@
 import { fetchMeterById } from "@/utils/api/meters";
 import MeterDetailsClient from "@/app/components/MeterDetailsClient";
-
+import styles from "./page.module.scss";
 export default async function MeterDetailPage({
   params,
 }: {
@@ -10,5 +10,9 @@ export default async function MeterDetailPage({
 
   const meter = await fetchMeterById(id);
 
-  return <MeterDetailsClient meter={meter} />;
+  return (
+    <div className={styles.container}>
+      <MeterDetailsClient meter={meter} />
+    </div>
+  );
 }

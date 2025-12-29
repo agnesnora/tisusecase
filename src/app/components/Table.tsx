@@ -10,6 +10,8 @@ import {
 } from "@tanstack/react-table";
 
 import { ReadingType } from "@/schemas/readings";
+import styles from "../styles/Table.module.scss";
+import { formatUnit } from "@/utils/formatUnit";
 
 interface ReadingsTableProps {
   data: ReadingType[];
@@ -25,9 +27,9 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
       {
         accessorKey: "value",
         header: "Reading",
-        cell: (info) => `${info.getValue()} ${unit}`,
+        cell: (info) => `${info.getValue()} `,
       },
-      { header: "Unit", cell: () => unit },
+      { header: "Unit", cell: () => formatUnit(unit) },
       {
         id: "actions",
         header: "Actions",
@@ -65,7 +67,7 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
   });
 
   return (
-    <div>
+    <div className={styles.container}>
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

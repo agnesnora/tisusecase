@@ -1,0 +1,35 @@
+.average,
+.highest,
+.lowest {
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-right: 1rem;
+  h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .subtitle {
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: lowercase;
+    margin-bottom: 0.5rem;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.average {
+  background-color: var(--color-average);
+}
+
+.lowest {
+  background-color: var(--color-lowest);
+}
+
+.highest {
+  background-color: var(--color-highest);
+}

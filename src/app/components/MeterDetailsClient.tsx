@@ -24,7 +24,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getAvailableDates } from "@/utils/availableMonths";
 import { toast } from "react-toastify";
-
+import styles from "../styles/MeterDetailsClient.module.scss";
+import { Button } from "./Button";
+import { InfoBox } from "./InfoBox";
+import { formatUnit } from "@/utils/formatUnit";
 interface MeterDetailsClientProps {
   meter: MeterType;
 }
@@ -162,21 +165,42 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
   if (error) return <div>Error loading readings</div>;
 
   return (
-    <div>
-      <h1>Meter Details</h1>
-      <div>
-        <h2>{meter.label}</h2>
-        <p>Type: {meter.type}</p>
-        <p>Unit: {meter.unit}</p>
-        <p>
-          Location: {meter.location.lat}, {meter.location.lon}
-        </p>
+    <div className={styles.container}>
+      <h2>{meter.label}</h2>
+
+      <div className={styles.statistics}>
+        <InfoBox
+          title="Average Consumption"
+          subtitle={`${
+            stats.avarage !== undefined ? stats.avarage.toFixed(2) : "No data"
+          } ${meter.unit}`}
+          variant="average"
+        />
+        <InfoBox
+          title="Highest Consumption"
+          subtitle={`${stats.highestMonth?.month}
+          ${stats.highestMonth?.year}`}
+          variant="highest"
+          value={`${stats.highest} ${formatUnit(meter.unit)}`}
+        />
+        <InfoBox
+          title="Lowest Consumption"
+          subtitle={`${stats.lowestMonth?.month}
+          ${stats.lowestMonth?.year}`}
+          variant="lowest"
+          value={`${stats.lowest} ${formatUnit(meter.unit)}`}
+        />
       </div>
-      <div>
-        <form onSubmit={handleSubmit(handleAddReading)}>
+      <div className={styles.addReading}>
+        <h3>Add new reading to consumer</h3>
+        <form className={styles.form} onSubmit={handleSubmit(handleAddReading)}>
           {availableDates.length > 0 ? (
             <>
-              <select onChange={handleDateChange} defaultValue="">
+              <select
+                onChange={handleDateChange}
+                defaultValue=""
+                className={styles.select}
+              >
                 <option value="" disabled>
                   Select month
                 </option>
@@ -202,10 +226,12 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
                 type="number"
                 step="any"
                 placeholder="Meters"
+                className={styles.valueInput}
               />
-              <button type="submit" disabled={addReadingMutation.isPending}>
-                Add reading
-              </button>
+              <Button type="submit" disabled={addReadingMutation.isPending}>
+                {" "}
+                Add new reading
+              </Button>
             </>
           ) : (
             <p>No readings can be added at this time.</p>
@@ -219,22 +245,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
-      <div>
-        <h3>Statistics</h3>
-        <p>
-          Average Consumption:{" "}
-          {stats.avarage !== undefined ? stats.avarage.toFixed(2) : "No data"}{" "}
-          {meter.unit}
-        </p>
-        <p>
-          Highest: {stats.highest} {meter.unit} ({stats.highestMonth?.month}{" "}
-          {stats.highestMonth?.year})
-        </p>
-        <p>
-          Lowest: {stats.lowest} {meter.unit} ({stats.lowestMonth?.month}{" "}
-          {stats.lowestMonth?.year})
-        </p>
-      </div>
+
       <EditReadingModal
         currentReading={editingReading}
         isOpen={!!editingReading}

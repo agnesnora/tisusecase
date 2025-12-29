@@ -40,9 +40,7 @@
     }
 
     tbody {
-      //   tr:nth-child(odd) {
-      //     background-color: $inputBackground;
-      //   }
+      cursor: pointer;
       tr {
         &:hover {
           background-color: var(--color-tableHoverRow);
@@ -94,11 +92,21 @@
     padding: 0.5rem;
     border: 1px solid var(--color-tableHeaderBg);
     color: var(--color-primaryText);
+    &:hover {
+      background-color: var(--color-tableHoverRow);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
-  .spanFlex {
+  .spanFlexLeft,
+  .spanFlexRight {
     display: flex;
     align-items: center;
   }
+
   .activePage {
     background-color: var(--color-secondaryBg);
   }

@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import styles from "../styles/FilteredTable.module.scss";
 import { getTypeStyle, MeterTypeEnum } from "@/utils/meterTypeStyles";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { formatUnit } from "@/utils/formatUnit";
 
 const FilteredTable = () => {
   const metersQuery = useQuery<MeterType[]>({
@@ -65,7 +66,7 @@ const FilteredTable = () => {
           const value = row.latestReading?.value;
           const unit = row.unit;
           if (value === undefined || value === null) return "-";
-          return `${value} ${unit}`;
+          return `${value} ${formatUnit(unit)}`;
         },
         id: "latestReading",
         enableSorting: true,
@@ -207,8 +208,12 @@ const FilteredTable = () => {
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
           className={styles.paginationButton}
+          style={{
+            borderTopLeftRadius: "8px",
+            borderBottomLeftRadius: "8px",
+          }}
         >
-          <span className={styles.spanFlex}>
+          <span className={styles.spanFlexLeft}>
             {" "}
             <BsArrowLeft /> Previous
           </span>
@@ -232,8 +237,12 @@ const FilteredTable = () => {
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
           className={styles.paginationButton}
+          style={{
+            borderTopRightRadius: "8px",
+            borderBottomRightRadius: "8px",
+          }}
         >
-          <span className={styles.spanFlex}>
+          <span className={styles.spanFlexRight}>
             <BsArrowRight />
             Next
           </span>
