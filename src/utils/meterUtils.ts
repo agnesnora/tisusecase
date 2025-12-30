@@ -14,11 +14,14 @@ export const calculateConsumption = (
   reading: ReadingType,
   previousReading?: ReadingType
 ) => {
+  if (reading.value < 0 || (previousReading && previousReading.value < 0)) {
+    throw new Error("Value cannot be negative");
+  }
   return previousReading ? reading.value - previousReading.value : 0;
 };
 
 export const calculateMeterStats = (readings: ReadingType[]) => {
-  const sortedReadings = readings.sort(orderReadingsAsc);
+  const sortedReadings = [...readings].sort(orderReadingsAsc);
   const readingsWithConsumption = sortedReadings.map((reading, index) => {
     const previousReading = index > 0 ? sortedReadings[index - 1] : undefined;
     const consumption = calculateConsumption(reading, previousReading);
@@ -44,12 +47,12 @@ export const calculateMeterStats = (readings: ReadingType[]) => {
   const lowest = Math.min(...consumptionValues);
 
   return {
-    avarage:
+    average:
       consumptionValues.reduce((acc, curr) => acc + curr, 0) /
       consumptionValues.length,
     highest,
     lowest,
-    highestMonth: validConsumptions.find((r) => r.consumption === highest), // 3. használat
-    lowestMonth: validConsumptions.find((r) => r.consumption === lowest), // 3. használat
+    highestMonth: validConsumptions.find((r) => r.consumption === highest),
+    lowestMonth: validConsumptions.find((r) => r.consumption === lowest),
   };
 };

@@ -172,7 +172,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         <InfoBox
           title="Average Consumption"
           subtitle={`${
-            stats.avarage !== undefined ? stats.avarage.toFixed(2) : "No data"
+            stats.average !== undefined ? stats.average.toFixed(2) : "No data"
           } ${meter.unit}`}
           variant="average"
         />
