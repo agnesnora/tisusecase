@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import styles from "../styles/EditReadingModal.module.scss";
 import { validateMonotonicValue } from "@/utils/validateMonotonicValue";
-
+import { useTranslations } from "next-intl";
 interface EditReadingModalProps {
   currentReading: ReadingType | null;
   isOpen: boolean;
@@ -21,6 +21,7 @@ const EditReadingModal = ({
   unit,
   allReadings,
 }: EditReadingModalProps & { allReadings: ReadingType[] }) => {
+  const t = useTranslations("actions");
   const {
     register,
     handleSubmit,
@@ -68,7 +69,7 @@ const EditReadingModal = ({
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <h3>
-          Edit Reading - {currentReading.month} {currentReading.year}
+          {t("editReading")} - {currentReading.month} {currentReading.year}
         </h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -80,9 +81,9 @@ const EditReadingModal = ({
           <span>{unit}</span>
           {errors.value && <span>{errors.value.message}</span>}
           <div>
-            <button type="submit">Save</button>
+            <button type="submit">{t("save")}</button>
             <button type="button" onClick={onClose}>
-              Cancel
+              {t("cancel")}
             </button>
           </div>
         </form>

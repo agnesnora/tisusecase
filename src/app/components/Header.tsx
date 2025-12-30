@@ -1,23 +1,27 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { PiSunDimFill, PiMoonStarsFill } from "react-icons/pi";
 import { useTheme } from "./ThemeProvider";
 import styles from "../styles/Header.module.scss";
 import Image from "next/image";
+import LanguageSwitcher from "./LanguageSwitcher";
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
+  const t = useTranslations("navigation");
   let pageTitle;
 
   if (pathname === "/dashboard") {
-    pageTitle = "Dashboard";
+    pageTitle = t("dashboard");
   } else if (pathname === "/map") {
-    pageTitle = "Map";
+    pageTitle = t("map");
   } else if (pathname.startsWith("/meters")) {
-    pageTitle = "Meters";
+    pageTitle = t("meters");
   }
+
   const getOrdinalSuffix = (day: number) => {
     if (day > 3 && day < 21) return "th";
     switch (day % 10) {
@@ -46,6 +50,7 @@ const Header = () => {
       </div>
       <div>
         <div className={styles.profileContainer}>
+          <LanguageSwitcher />
           <button className={styles.themeButton} onClick={toggleTheme}>
             {theme === "light" ? (
               <PiMoonStarsFill

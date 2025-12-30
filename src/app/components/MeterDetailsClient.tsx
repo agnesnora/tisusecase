@@ -28,11 +28,13 @@ import styles from "../styles/MeterDetailsClient.module.scss";
 import { Button } from "./Button";
 import { InfoBox } from "./InfoBox";
 import { formatUnit } from "@/utils/formatUnit";
+import { useTranslations } from "next-intl";
 interface MeterDetailsClientProps {
   meter: MeterType;
 }
 
 const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
+  const i18nStats = useTranslations("statistics");
   const queryClient = useQueryClient();
   const [editingReading, setEditingReading] = useState<ReadingType | null>(
     null
@@ -61,10 +63,10 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
       reset();
-      toast.success("Reading saved successfully!");
+      toast.success(i18nStats("readingSaved"));
     },
     onError: () => {
-      toast.error("Failed to save reading. Please try again.");
+      toast.error(i18nStats("readingNotSaved"));
     },
   });
 
@@ -134,7 +136,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         type: "manual",
         message: `Value cannot be lower than the previous reading (${latestReading.value})`,
       });
-      toast.warning("Validation error: Please check the value!");
+      toast.warning(i18nStats("validationError"));
       return;
     }
     const newReading = {
@@ -170,21 +172,21 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
 
       <div className={styles.statistics}>
         <InfoBox
-          title="Average Consumption"
+          title={i18nStats("average")}
           subtitle={`${
             stats.average !== undefined ? stats.average.toFixed(2) : "No data"
           } ${meter.unit}`}
           variant="average"
         />
         <InfoBox
-          title="Highest Consumption"
+          title={i18nStats("highestMonth")}
           subtitle={`${stats.highestMonth?.month}
           ${stats.highestMonth?.year}`}
           variant="highest"
           value={`${stats.highest} ${formatUnit(meter.unit)}`}
         />
         <InfoBox
-          title="Lowest Consumption"
+          title={i18nStats("lowestMonth")}
           subtitle={`${stats.lowestMonth?.month}
           ${stats.lowestMonth?.year}`}
           variant="lowest"
@@ -192,7 +194,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         />
       </div>
       <div className={styles.addReading}>
-        <h3>Add new reading to consumer</h3>
+        <h3>{i18nStats("addNewReadingToConsumer")}</h3>
         <form className={styles.form} onSubmit={handleSubmit(handleAddReading)}>
           {availableDates.length > 0 ? (
             <>
@@ -202,7 +204,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
                 className={styles.select}
               >
                 <option value="" disabled>
-                  Select month
+                  {i18nStats("selectMonth")}
                 </option>
                 {availableDates.map((date) => (
                   <option
@@ -225,12 +227,12 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
                 {...register("value", { valueAsNumber: true })}
                 type="number"
                 step="any"
-                placeholder="Meters"
+                placeholder={i18nStats("value")}
                 className={styles.valueInput}
               />
               <Button type="submit" disabled={addReadingMutation.isPending}>
                 {" "}
-                Add new reading
+                {i18nStats("addNew")}
               </Button>
             </>
           ) : (

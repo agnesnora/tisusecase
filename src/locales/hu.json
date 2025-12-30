@@ -1,0 +1,107 @@
+{
+  "common": {
+    "loading": "Betöltés...",
+    "error": "Hiba",
+    "save": "Mentés",
+    "cancel": "Mégse",
+    "edit": "Szerkesztés",
+    "delete": "Törlés",
+    "add": "Hozzáadás",
+    "back": "Vissza",
+    "next": "Következő",
+    "previous": "Előző",
+    "search": "Keresés",
+    "filter": "Szűrés",
+    "all": "Összes"
+  },
+  "navigation": {
+    "dashboard": "Irányítópult",
+    "meters": "Mérőórák",
+    "map": "Térkép"
+  },
+  "meters": {
+    "title": "Mérők",
+    "id": "Azonosító",
+    "label": "Címke",
+    "location": "Helyszín",
+    "type": "Típus",
+    "unit": "Mértékegység",
+    "latestReading": "Legutóbbi leolvasás",
+    "noData": "Nincs elérhető adat",
+    "electricity": "Villany",
+    "gas": "Gáz",
+    "allTypes": "Minden Típus",
+    "show": "Megjelenítés"
+  },
+  "readings": {
+    "title": "Leolvasások",
+    "value": "Érték",
+    "month": "Hónap",
+    "year": "Év",
+    "consumption": "Fogyasztás",
+    "addReading": "Leolvasás Hozzáadása",
+    "editReading": "Leolvasás Szerkesztése",
+    "deleteReading": "Leolvasás Törlése",
+    "reading": "Leolvasás",
+    "unit": "Mértékegység",
+    "actions": "Műveletek"
+  },
+  "statistics": {
+    "title": "Statisztikák",
+    "average": "Átlagos fogyasztás",
+    "highest": "Legmagasabb",
+    "lowest": "Legalacsonyabb",
+    "highestMonth": "Legmagasabb Hónap",
+    "lowestMonth": "Legalacsonyabb Hónap",
+    "totalConsumption": "Összes Fogyasztás",
+    "monthlyAverage": "Havi Átlag",
+    "addNewReadingToConsumer": "Új fogyasztás hozzáadása a fogyasztóhoz",
+    "addNew": "Új érték hozzáadása",
+    "selectMonth": "Hónap kiválasztása",
+    "value": "Érték"
+  },
+  "actions": {
+    "editReading": "Mérés szerkesztése",
+    "save": "Mentés",
+    "cancel": "Visszavonás",
+    "delete": "Mérés törlése",
+    "readingSaved": "Mérés mentve",
+    "readingDeleted": "Mérés törölve",
+
+    "readingNotSaved": "Mérés mentése sikertelen",
+    "readingNotDeleted": "Mérés törlése sikertelen",
+    "validationError": "Hitelesítési hiba, nézd meg az értéket"
+  },
+  "toast": {},
+  "validation": {
+    "required": "Ez a mező kötelező",
+    "positive": "Az értéknek pozitívnak kell lennie",
+    "maxValue": "Az érték irreálisan magasnak tűnik (max {{max}})",
+    "monotonic": {
+      "greaterThanPrevious": "Az értéknek nagyobbnak vagy egyenlőnek kell lennie az előző leolvasásnál {{value}} ({{month}} {{year}})",
+      "lessThanNext": "Az értéknek kisebbnek vagy egyenlőnek kell lennie a következő leolvasásnál {{value}} ({{month}} {{year}})"
+    }
+  },
+  "pagination": {
+    "show": "{{count}} megjelenítése",
+    "page": "{{current}}. oldal a {{total}}-ból"
+  },
+  "months": {
+    "JAN": "Január",
+    "FEB": "Február",
+    "MAR": "Március",
+    "APR": "Április",
+    "MAY": "Május",
+    "JUN": "Június",
+    "JUL": "Július",
+    "AUG": "Augusztus",
+    "SEP": "Szeptember",
+    "OCT": "Október",
+    "NOV": "November",
+    "DEC": "December"
+  },
+  "units": {
+    "kWh": "kWh",
+    "m3": "m³"
+  }
+}

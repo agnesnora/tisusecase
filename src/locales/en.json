@@ -1,0 +1,108 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "meters": "Meters",
+    "map": "Map"
+  },
+  "meters": {
+    "title": "Meters",
+    "id": "ID",
+    "label": "Label",
+    "location": "Location",
+    "type": "Type",
+    "unit": "Unit",
+    "latestReading": "Latest Reading",
+    "noData": "No data available",
+    "electricity": "Electricity",
+    "gas": "Gas",
+    "allTypes": "All Types",
+    "show": "Show"
+  },
+  "readings": {
+    "title": "Readings",
+    "value": "Value",
+    "month": "Month",
+    "year": "Year",
+    "consumption": "Consumption",
+    "addReading": "Add Reading",
+    "editReading": "Edit Reading",
+    "deleteReading": "Delete Reading",
+    "reading": "Reading",
+    "unit": "Unit",
+    "actions": "Actions"
+  },
+  "statistics": {
+    "title": "Statistics",
+    "average": "Average Consumption",
+    "highest": "Highest",
+    "lowest": "Lowest",
+    "highestMonth": "Highest Month",
+    "lowestMonth": "Lowest Month",
+    "totalConsumption": "Total Consumption",
+    "monthlyAverage": "Monthly Average",
+    "addNewReadingToConsumer": "Add new reading to Consumer",
+    "addNew": "Add new reading",
+    "selectMonth": "Select month",
+    "value": "Value"
+  },
+  "actions": {
+    "editReading": "Edit Reading",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete Reading",
+    "readingSaved": "Reading saved successfully!",
+    "readingDeleted": "Reading deleted successfully!",
+
+    "readingNotSaved": "Failed to save reading",
+    "readingNotDeleted": "Failed to delete reading",
+    "validationError": "Validation error: Please check the value!"
+  },
+  "toast": {},
+
+  "validation": {
+    "required": "This field is required",
+    "positive": "Value must be positive",
+    "maxValue": "Value seems unrealistically high (max {{max}})",
+    "monotonic": {
+      "greaterThanPrevious": "Value must be greater than or equal to the previous reading {{value}} ({{month}} {{year}})",
+      "lessThanNext": "Value must be less than or equal to the next reading {{value}} ({{month}} {{year}})"
+    }
+  },
+  "pagination": {
+    "show": "Show {{count}}",
+    "page": "Page {{current}} of {{total}}"
+  },
+  "months": {
+    "JAN": "January",
+    "FEB": "February",
+    "MAR": "March",
+    "APR": "April",
+    "MAY": "May",
+    "JUN": "June",
+    "JUL": "July",
+    "AUG": "August",
+    "SEP": "September",
+    "OCT": "October",
+    "NOV": "November",
+    "DEC": "December"
+  },
+  "units": {
+    "kWh": "kWh",
+    "m3": "m³"
+  }
+}

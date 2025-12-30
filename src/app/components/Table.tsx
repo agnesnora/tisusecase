@@ -12,6 +12,7 @@ import {
 import { ReadingType } from "@/schemas/readings";
 import styles from "../styles/Table.module.scss";
 import { formatUnit } from "@/utils/formatUnit";
+import { useTranslations } from "next-intl";
 
 interface ReadingsTableProps {
   data: ReadingType[];
@@ -20,19 +21,21 @@ interface ReadingsTableProps {
   onDelete: (reading: ReadingType) => void;
 }
 const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
+  const t = useTranslations("readings");
   const columns = useMemo<ColumnDef<ReadingType>[]>(
     () => [
-      { accessorKey: "year", header: "Year" },
-      { accessorKey: "month", header: "Month" },
+      { accessorKey: "year", header: () => t("year") },
+      { accessorKey: "month", header: () => t("month") },
       {
         accessorKey: "value",
-        header: "Reading",
-        cell: (info) => `${info.getValue()} `,
+        header: () => t("reading"),
+        cell: (info) => `${info.getValue()}`,
       },
-      { header: "Unit", cell: () => formatUnit(unit) },
+      { id: "unit", header: () => t("unit"), cell: () => formatUnit(unit) },
+
       {
         id: "actions",
-        header: "Actions",
+        header: () => t("actions"),
         cell: ({ row }) => {
           const isLatest = row.index === 0;
           return (
@@ -50,7 +53,7 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
         },
       },
     ],
-    [unit, onEdit, onDelete]
+    [unit, onEdit, onDelete, t]
   );
 
   // const [sorting, setSorting] = useState<SortingState>([]);
@@ -74,11 +77,10 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  {" "}
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
-                  )}{" "}
+                  )}
                 </th>
               ))}
             </tr>

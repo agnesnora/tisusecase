@@ -30,8 +30,10 @@ import styles from "../styles/FilteredTable.module.scss";
 import { getTypeStyle, MeterTypeEnum } from "@/utils/meterTypeStyles";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { formatUnit } from "@/utils/formatUnit";
+import { useTranslations } from "next-intl";
 
 const FilteredTable = () => {
+  const t = useTranslations("meters");
   const metersQuery = useQuery<MeterType[]>({
     queryKey: ["meters"],
     queryFn: fetchMetersList,
@@ -43,16 +45,16 @@ const FilteredTable = () => {
 
   const metersColumns: ColumnDef<MeterWithReadingsType>[] = useMemo(
     () => [
-      { accessorKey: "id", header: "Id", enableSorting: true },
-      { accessorKey: "label", header: "Label", enableSorting: true },
+      { accessorKey: "id", header: () => t("id"), enableSorting: true },
+      { accessorKey: "label", header: () => t("label"), enableSorting: true },
       {
-        header: "Location",
+        header: () => t("location"),
         accessorFn: (row) => `${row.location.lat}, ${row.location.lon}`,
         id: "location",
       },
       {
         accessorKey: "type",
-        header: "Type",
+        header: () => t("type"),
         enableSorting: true,
         cell: ({ row }) => {
           const type = row.original.type as MeterTypeEnum;
@@ -61,7 +63,7 @@ const FilteredTable = () => {
         },
       },
       {
-        header: "Latest Reading",
+        header: () => t("latestReading"),
         accessorFn: (row) => {
           const value = row.latestReading?.value;
           const unit = row.unit;
@@ -72,7 +74,7 @@ const FilteredTable = () => {
         enableSorting: true,
       },
     ],
-    []
+    [t]
   );
   const router = useRouter();
 
@@ -113,7 +115,6 @@ const FilteredTable = () => {
   return (
     <div className={styles.container}>
       <div className={styles.selectWrapper}>
-        {" "}
         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => {
@@ -123,10 +124,10 @@ const FilteredTable = () => {
         >
           {[5, 10, 20].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              {t("show")} {pageSize}
             </option>
           ))}
-        </select>{" "}
+        </select>
       </div>
       <table>
         <thead>
@@ -161,13 +162,12 @@ const FilteredTable = () => {
                 </th>
               ))}
             </tr>
-          ))}{" "}
+          ))}
           <tr className={styles.filterRow}>
             <td></td>
             <td></td>
             <td></td>
             <td>
-              {" "}
               <select
                 value={
                   (table.getColumn("type")?.getFilterValue() as string) ?? ""
@@ -179,9 +179,9 @@ const FilteredTable = () => {
                 }}
                 className={`${styles.select} ${styles.typeSelect}`}
               >
-                <option value="">All Types</option>
-                <option value="electricity">Electricity</option>
-                <option value="gas">Gas</option>
+                <option value="">{t("allTypes")}</option>
+                <option value="electricity">{t("electricity")}</option>
+                <option value="gas">{t("gas")}</option>
               </select>
             </td>
             <td></td> {/* Latest Reading oszlop - üres */}
@@ -214,7 +214,6 @@ const FilteredTable = () => {
           }}
         >
           <span className={styles.spanFlexLeft}>
-            {" "}
             <BsArrowLeft /> Previous
           </span>
         </button>
