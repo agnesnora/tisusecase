@@ -11,15 +11,15 @@ const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
-  const t = useTranslations("navigation");
+  const i18nNav = useTranslations("navigation");
   let pageTitle;
 
   if (pathname === "/dashboard") {
-    pageTitle = t("dashboard");
+    pageTitle = i18nNav("dashboard");
   } else if (pathname === "/map") {
-    pageTitle = t("map");
+    pageTitle = i18nNav("map");
   } else if (pathname.startsWith("/meters")) {
-    pageTitle = t("meters");
+    pageTitle = i18nNav("meters");
   }
 
   const getOrdinalSuffix = (day: number) => {

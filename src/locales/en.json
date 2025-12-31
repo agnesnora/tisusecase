@@ -33,6 +33,11 @@
     "allTypes": "All Types",
     "show": "Show"
   },
+  "dashboard": {
+    "gas": "Gas consumption",
+    "electricity": "Electricity consumption",
+    "period": "Period"
+  },
   "readings": {
     "title": "Readings",
     "value": "Value",
@@ -67,7 +72,7 @@
     "delete": "Delete Reading",
     "readingSaved": "Reading saved successfully!",
     "readingDeleted": "Reading deleted successfully!",
-
+    "confirmDelete": "Are you sure you want to delete this reading?",
     "readingNotSaved": "Failed to save reading",
     "readingNotDeleted": "Failed to delete reading",
     "validationError": "Validation error: Please check the value!"

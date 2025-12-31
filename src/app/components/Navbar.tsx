@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "../styles/Navbar.module.scss";
 import { TbMap2 } from "react-icons/tb";
 import { PiGaugeFill } from "react-icons/pi";
@@ -7,32 +9,49 @@ import { BiSolidDashboard } from "react-icons/bi";
 import { useTranslations } from "next-intl";
 
 const Navbar = () => {
-  const t = useTranslations("navigation");
+  const i18nNav = useTranslations("navigation");
+  const pathname = usePathname();
+
+  const isActive = (path: string) => pathname.startsWith(path);
   return (
     <div className={styles.container}>
-      <h1>
-        Agnesnora
-        <br />
-        Studio.
-      </h1>
+      <Link href="/">
+        <h1>
+          Agnesnora
+          <br />
+          Studio.
+        </h1>
+      </Link>
       <nav>
         {" "}
         <Link href="/dashboard">
-          <div className={styles.linkContent}>
+          <div
+            className={`${styles.linkContent} ${
+              isActive("/dashboard") ? styles.active : ""
+            }`}
+          >
             <BiSolidDashboard className={styles.icon} />
-            <span>{t("dashboard")}</span>
+            <span>{i18nNav("dashboard")}</span>
           </div>
         </Link>
         <Link href="/map">
-          <div className={styles.linkContent}>
+          <div
+            className={`${styles.linkContent} ${
+              isActive("/map") ? styles.active : ""
+            }`}
+          >
             <TbMap2 className={styles.icon} />
-            <span>{t("map")}</span>
+            <span>{i18nNav("map")}</span>
           </div>
         </Link>
         <Link href="/meters">
-          <div className={styles.linkContent}>
+          <div
+            className={`${styles.linkContent} ${
+              isActive("/meters") ? styles.active : ""
+            }`}
+          >
             <PiGaugeFill className={styles.icon} />
-            <span>{t("meters")}</span>
+            <span>{i18nNav("meters")}</span>
           </div>
         </Link>
       </nav>

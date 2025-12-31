@@ -21,21 +21,25 @@ interface ReadingsTableProps {
   onDelete: (reading: ReadingType) => void;
 }
 const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
-  const t = useTranslations("readings");
+  const i18nRead = useTranslations("readings");
   const columns = useMemo<ColumnDef<ReadingType>[]>(
     () => [
-      { accessorKey: "year", header: () => t("year") },
-      { accessorKey: "month", header: () => t("month") },
+      { accessorKey: "year", header: () => i18nRead("year") },
+      { accessorKey: "month", header: () => i18nRead("month") },
       {
         accessorKey: "value",
-        header: () => t("reading"),
+        header: () => i18nRead("reading"),
         cell: (info) => `${info.getValue()}`,
       },
-      { id: "unit", header: () => t("unit"), cell: () => formatUnit(unit) },
+      {
+        id: "unit",
+        header: () => i18nRead("unit"),
+        cell: () => formatUnit(unit),
+      },
 
       {
         id: "actions",
-        header: () => t("actions"),
+        header: () => i18nRead("actions"),
         cell: ({ row }) => {
           const isLatest = row.index === 0;
           return (
@@ -53,7 +57,7 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
         },
       },
     ],
-    [unit, onEdit, onDelete, t]
+    [unit, onEdit, onDelete, i18nRead]
   );
 
   // const [sorting, setSorting] = useState<SortingState>([]);

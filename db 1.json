@@ -515,13 +515,6 @@
       "id": "45"
     },
     {
-      "id": "46",
-      "meterId": "0003",
-      "month": "JUL",
-      "year": 2025,
-      "value": 1785
-    },
-    {
       "value": 1861,
       "id": "47"
     },
@@ -2409,18 +2402,18 @@
       "id": "fccf"
     },
     {
-      "id": "6214",
-      "month": "AUG",
-      "year": 2025,
-      "value": 1890,
-      "meterId": "0003"
-    },
-    {
       "id": "c703",
       "month": "AUG",
       "year": 2025,
       "value": 178,
       "meterId": "0004"
+    },
+    {
+      "id": "82c2",
+      "month": "JUN",
+      "year": 2025,
+      "value": 1700,
+      "meterId": "0003"
     }
   ]
 }

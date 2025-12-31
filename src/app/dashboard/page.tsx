@@ -4,6 +4,7 @@ import { fetchReadingsList } from "@/utils/api/readings";
 import ConsumptionChart from "../components/ConsumptionChart";
 import React from "react";
 import styles from "./page.module.scss";
+import { formatUnit } from "@/utils/formatUnit";
 
 const DashboardPage = async () => {
   const [meters, readings] = await Promise.all([
@@ -15,11 +16,17 @@ const DashboardPage = async () => {
 
   return (
     <div className={styles.container}>
-      <h2>Gas Consumption</h2>
-      <ConsumptionChart data={consumptionData.gas} />
+      <ConsumptionChart
+        data={consumptionData.gas}
+        unit={formatUnit("m3")}
+        type="gas"
+      />
 
-      <h2>Electricity Consumption</h2>
-      <ConsumptionChart data={consumptionData.electricity} />
+      <ConsumptionChart
+        data={consumptionData.electricity}
+        unit={formatUnit("kWh")}
+        type="electricity"
+      />
     </div>
   );
 };

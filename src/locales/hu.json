@@ -33,6 +33,11 @@
     "allTypes": "Minden Típus",
     "show": "Megjelenítés"
   },
+  "dashboard": {
+    "gas": "Gázfogyasztás",
+    "electricity": "Áramfogyasztás",
+    "period": "Fogyasztási hónap"
+  },
   "readings": {
     "title": "Leolvasások",
     "value": "Érték",
@@ -67,7 +72,7 @@
     "delete": "Mérés törlése",
     "readingSaved": "Mérés mentve",
     "readingDeleted": "Mérés törölve",
-
+    "confirmDelete": "Biztosan törlni akarja a mérést?",
     "readingNotSaved": "Mérés mentése sikertelen",
     "readingNotDeleted": "Mérés törlése sikertelen",
     "validationError": "Hitelesítési hiba, nézd meg az értéket"

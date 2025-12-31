@@ -1,10 +1,19 @@
-.barChart {
-  width: 100%;
-  max-width: 70%;
-  max-height: 50%;
-  aspect-ratio: 1.618;
-  background-color: var(--color-chartBg);
-  padding: 1rem;
+.wrapper {
+  // background-color: var(--color-chartBg);
   border-radius: 12px;
-  margin: 2rem 0;
+  width: 80%;
+  h2 {
+    padding: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-primaryText);
+    font-family: var(--font-inter);
+    font-weight: 600;
+  }
+  .barChart {
+    max-width: 100%;
+    max-height: 50%;
+    aspect-ratio: 1.618;
+    // background-color: var(--color-chartBg);
+    margin-bottom: 2rem;
+  }
 }

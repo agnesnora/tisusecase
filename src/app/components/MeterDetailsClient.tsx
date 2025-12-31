@@ -10,7 +10,7 @@ import {
 
 import React, { useState } from "react";
 import Table from "./Table";
-import EditReadingModal from "./EditReadingModal";
+import ReadingModal from "./ReadingModal";
 import { orderReadingsDesc } from "@/utils/dateOrderHelper";
 import { calculateMeterStats } from "@/utils/meterUtils";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
@@ -37,6 +37,9 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
   const i18nStats = useTranslations("statistics");
   const queryClient = useQueryClient();
   const [editingReading, setEditingReading] = useState<ReadingType | null>(
+    null
+  );
+  const [deletingReading, setDeletingReading] = useState<ReadingType | null>(
     null
   );
 
@@ -159,7 +162,12 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
   };
 
   const handleDelete = (reading: ReadingType) => {
-    deleteReadingMutation.mutate(reading.id);
+    setDeletingReading(reading);
+  };
+
+  const handleConfirmDelete = (id: string) => {
+    deleteReadingMutation.mutate(id);
+    setDeletingReading(null);
   };
   const sortedReadings = [...readings].sort(orderReadingsDesc);
 
@@ -248,12 +256,23 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         onDelete={handleDelete}
       />
 
-      <EditReadingModal
+      <ReadingModal
         currentReading={editingReading}
         isOpen={!!editingReading}
         onClose={() => setEditingReading(null)}
         onSave={handleSaveEdit}
         unit={meter.unit}
+        mode="edit"
+        allReadings={readings}
+      />
+
+      <ReadingModal
+        currentReading={deletingReading}
+        isOpen={!!deletingReading}
+        onClose={() => setDeletingReading(null)}
+        onDelete={handleConfirmDelete}
+        unit={meter.unit}
+        mode="delete"
         allReadings={readings}
       />
     </div>

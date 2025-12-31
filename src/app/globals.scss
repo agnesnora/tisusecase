@@ -23,6 +23,10 @@ body {
   --color-linkText: var(--color-primaryText);
   --color-linkActiveBg: var(--color-btnBg);
   --color-mainBg: #f5f5f5;
+  --color-toolTipBg: var(--color-mainBg);
+  --chart-axis: var(--color-primaryText);
+  --chart-tick: var(--color-primaryText);
+  --chart-grid: #f8f8f8;
 
   --color-m1: #ff4d6d;
   --color-m2: #ffb703;
@@ -32,7 +36,7 @@ body {
   --color-m6: #00bbf9;
   --color-m7: #f15bb5;
   --color-m8: #fb5607;
-  --color-m9: #dfecea;
+  --color-m9: #a6c9c4;
   --color-m10: #8395a7;
 
   --color-average: #f7ede2;
@@ -41,17 +45,20 @@ body {
 }
 [data-theme="dark"] {
   --color-primaryBg: #1c1c1c;
-  --color-secondaryBg: #3b3c36;
+  --color-primaryBg: #222831;
+  --color-secondaryBg: #2d4356;
+  --color-secondaryBg: #31363f;
+  // --color-secondaryBg: #3b3c36;
   --color-primaryText: #fdfaf7;
   --color-secondaryText: #fff;
   --color-btnBg: #f6bd60;
   --color-btnText: #3b3c36;
   --color-chartBg: var(--color-secondaryBg);
-  --color-chartBg: #292929;
+  --color-chartBg: #31363f;
   --color-tableHeaderBg: #dfecea;
   --color-tableRow: var(--color-secondaryBg);
   --color-tableHoverRow: #ebebea;
   --color-linkText: var(--color-primaryText);
-  --color-linkActiveBg: var(--color-btnBg);
-  --color-mainBg: #141414;
+  --color-linkActiveBg: var(--color-primaryBg);
+  --color-mainBg: #111418;
 }

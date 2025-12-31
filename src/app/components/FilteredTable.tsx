@@ -33,7 +33,7 @@ import { formatUnit } from "@/utils/formatUnit";
 import { useTranslations } from "next-intl";
 
 const FilteredTable = () => {
-  const t = useTranslations("meters");
+  const i18nMet = useTranslations("meters");
   const metersQuery = useQuery<MeterType[]>({
     queryKey: ["meters"],
     queryFn: fetchMetersList,
@@ -45,16 +45,20 @@ const FilteredTable = () => {
 
   const metersColumns: ColumnDef<MeterWithReadingsType>[] = useMemo(
     () => [
-      { accessorKey: "id", header: () => t("id"), enableSorting: true },
-      { accessorKey: "label", header: () => t("label"), enableSorting: true },
+      { accessorKey: "id", header: () => i18nMet("id"), enableSorting: true },
       {
-        header: () => t("location"),
+        accessorKey: "label",
+        header: () => i18nMet("label"),
+        enableSorting: true,
+      },
+      {
+        header: () => i18nMet("location"),
         accessorFn: (row) => `${row.location.lat}, ${row.location.lon}`,
         id: "location",
       },
       {
         accessorKey: "type",
-        header: () => t("type"),
+        header: () => i18nMet("type"),
         enableSorting: true,
         cell: ({ row }) => {
           const type = row.original.type as MeterTypeEnum;
@@ -63,7 +67,7 @@ const FilteredTable = () => {
         },
       },
       {
-        header: () => t("latestReading"),
+        header: () => i18nMet("latestReading"),
         accessorFn: (row) => {
           const value = row.latestReading?.value;
           const unit = row.unit;
@@ -74,7 +78,7 @@ const FilteredTable = () => {
         enableSorting: true,
       },
     ],
-    [t]
+    [i18nMet]
   );
   const router = useRouter();
 
@@ -124,7 +128,7 @@ const FilteredTable = () => {
         >
           {[5, 10, 20].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              {t("show")} {pageSize}
+              {i18nMet("show")} {pageSize}
             </option>
           ))}
         </select>
@@ -179,9 +183,9 @@ const FilteredTable = () => {
                 }}
                 className={`${styles.select} ${styles.typeSelect}`}
               >
-                <option value="">{t("allTypes")}</option>
-                <option value="electricity">{t("electricity")}</option>
-                <option value="gas">{t("gas")}</option>
+                <option value="">{i18nMet("allTypes")}</option>
+                <option value="electricity">{i18nMet("electricity")}</option>
+                <option value="gas">{i18nMet("gas")}</option>
               </select>
             </td>
             <td></td> {/* Latest Reading oszlop - üres */}
