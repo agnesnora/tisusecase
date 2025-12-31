@@ -9,7 +9,8 @@ import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { LuZap, LuFlame } from "react-icons/lu";
-import { useTheme } from "./ThemeProvider";
+import { useTranslations } from "next-intl";
+
 import styles from "../styles/MapComponent.module.scss";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,9 +67,9 @@ const customElecIcon = L.divIcon({
   iconAnchor: [16, 32],
 });
 const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
-  const { theme } = useTheme();
+  const i18nMap = useTranslations("map");
   return (
-    <div>
+    <div className={styles.container}>
       <MapContainer
         center={[47.5, 19.0]}
         zoom={7}
@@ -100,6 +101,27 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
           </Marker>
         ))}
       </MapContainer>
+      <div className={styles.legend}>
+        <h4>{i18nMap("legend")}</h4>
+        <ul>
+          <li>
+            <LuFlame
+              size={8}
+              className={`${styles.icon} ${styles.gas} ${styles.legendIcon}`}
+            />
+
+            <span>{i18nMap("gas")}</span>
+          </li>
+          <li>
+            <LuZap
+              size={8}
+              className={`${styles.icon} ${styles.electric} ${styles.legendIcon}`}
+            />
+
+            <span>{i18nMap("electricity")}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

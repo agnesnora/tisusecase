@@ -5,7 +5,7 @@ type ButtonProps = {
   type: "submit" | "button";
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
-  variant?: "primary" | "secondary" | "danger" | "icon";
+  variant?: "success" | "warning" | "danger" | "icon";
 };
 
 export const Button: React.FC<ButtonProps> = ({

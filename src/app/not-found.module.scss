@@ -1,0 +1,26 @@
+.container {
+  text-align: center;
+  padding: 10rem;
+  color: var(--color-primaryText);
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    margin: 2rem;
+    font-size: 1.1rem;
+  }
+  a {
+    margin-top: 2rem;
+    text-decoration: none;
+    background-color: var(--color-btnBg);
+    padding: 1rem;
+    color: var(--color-btnText);
+    border-radius: 12px;
+    &:hover {
+      border: 2px solid var(--color-btnBg);
+      background-color: transparent;
+      color: var(--color-btnBg);
+    }
+  }
+}

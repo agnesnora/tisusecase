@@ -1,0 +1,14 @@
+.btn {
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-primaryText);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-secondaryBg);
+
+    border-radius: 50;
+  }
+}

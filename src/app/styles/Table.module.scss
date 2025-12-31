@@ -18,7 +18,7 @@
     }
 
     thead {
-      background-color: var(--color-mainBg);
+      background-color: var(--color-tableHeaderBg);
 
       th {
         color: var(--color-primaryText);
@@ -29,10 +29,31 @@
     tbody {
       tr {
         &:hover {
-          background-color: var(--color-btnBg);
+          background-color: var(--color-tableHoverRow);
           color: var(--color-primaryText);
         }
       }
+    }
+  }
+}
+
+.actionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  button {
+    cursor: pointer;
+  }
+  .iconBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    &:hover {
+      background-color: var(--color-secondaryBg);
+
+      border-radius: 50;
     }
   }
 }

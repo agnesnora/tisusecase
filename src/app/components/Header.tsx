@@ -22,36 +22,15 @@ const Header = () => {
     pageTitle = i18nNav("meters");
   }
 
-  const getOrdinalSuffix = (day: number) => {
-    if (day > 3 && day < 21) return "th";
-    switch (day % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
   return (
     <header className={styles.header}>
       <div className={styles.title}>
         <h1>{pageTitle}</h1>
-        <p>
-          {new Date().getDate()}
-          {getOrdinalSuffix(new Date().getDate())}{" "}
-          {new Date().toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric",
-          })}
-        </p>
       </div>
       <div>
         <div className={styles.profileContainer}>
           <LanguageSwitcher />
-          <button className={styles.themeButton} onClick={toggleTheme}>
+          <button className={styles.btn} onClick={toggleTheme}>
             {theme === "light" ? (
               <PiMoonStarsFill
                 style={{ color: "var(--color-btnText)" }}

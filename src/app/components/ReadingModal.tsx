@@ -77,8 +77,11 @@ const ReadingModal = ({
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <h3>
-          {mode === "edit" ? i18nAct("editReading") : i18nAct("delete")} -{" "}
-          {currentReading.month} {currentReading.year}
+          {mode === "edit"
+            ? `${i18nAct("editReading")} - ${currentReading.month} ${
+                currentReading.year
+              }`
+            : i18nAct("delete")}
         </h3>
         {mode === "edit" ? (
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -90,23 +93,23 @@ const ReadingModal = ({
             />
             <span>{unit}</span>
             {errors.value && <span>{errors.value.message}</span>}
-            <div>
-              <Button type="submit" variant="primary">
+            <div className={styles.flex}>
+              <Button type="submit" variant="success">
                 {i18nAct("save")}
               </Button>
-              <Button type="button" variant="secondary" onClick={onClose}>
+              <Button type="button" variant="warning" onClick={onClose}>
                 {i18nAct("cancel")}
               </Button>
             </div>
           </form>
         ) : (
           <div>
-            <p>{i18nAct("confirmDelete")}</p>
+            <h2>{i18nAct("confirmDelete")}</h2>
             <div>
               <Button type="button" variant="danger" onClick={handleDelete}>
                 {i18nAct("delete")}
               </Button>
-              <Button type="button" variant="secondary" onClick={onClose}>
+              <Button type="button" variant="warning" onClick={onClose}>
                 {i18nAct("cancel")}
               </Button>
             </div>

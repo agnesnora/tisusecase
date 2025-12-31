@@ -43,13 +43,19 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
         cell: ({ row }) => {
           const isLatest = row.index === 0;
           return (
-            <div>
-              <button onClick={() => onEdit(row.original)}>
-                <TbEdit />
+            <div className={styles.actionContainer}>
+              <button
+                className={styles.iconBtn}
+                onClick={() => onEdit(row.original)}
+              >
+                <TbEdit color="var(--color-primaryText)" size={20} />
               </button>
               {isLatest && (
-                <button onClick={() => onDelete(row.original)}>
-                  <TbTrash />
+                <button
+                  className={styles.iconBtn}
+                  onClick={() => onDelete(row.original)}
+                >
+                  <TbTrash size={20} color="var(--color-primaryText)" />
                 </button>
               )}
             </div>

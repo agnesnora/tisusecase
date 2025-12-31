@@ -18,6 +18,10 @@
       color: var(--color-primaryText);
       font-family: var(--font-inter);
       font-size: 1.2rem;
+      &:hover {
+        background-color: var(--color-linkHover);
+        border-radius: 12px;
+      }
 
       .linkContent {
         padding: 1rem;

@@ -1,10 +1,39 @@
 .btn {
   background-color: var(--color-btnBg);
   border-radius: 12px;
-  color: var(--color-secondaryText);
+  color: var(--color-linkText);
   padding: 0.8rem 1rem;
   border: none;
   font-weight: 600;
   font-size: 1rem;
-  color: var(--color-primaryText);
+  margin-right: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: transparent;
+    border: 2px solid var(--color-btnHover);
+    color: var(--color-btnHover);
+  }
+}
+.warning {
+  background-color: var(--color-warning);
+  &:hover {
+    border: 2px solid var(--color-warning);
+    color: var(--color-warning);
+  }
+}
+.danger {
+  background-color: var(--color-danger);
+  color: white;
+  &:hover {
+    border: 2px solid var(--color-danger);
+    color: var(--color-danger);
+  }
+}
+.success {
+  background-color: var(--color-success);
+  &:hover {
+    border: 2px solid var(--color-success);
+    color: var(--color-success);
+  }
 }

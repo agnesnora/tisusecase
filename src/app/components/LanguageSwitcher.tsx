@@ -17,7 +17,7 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <button onClick={toggleLanguage} className={styles.langButton}>
+    <button onClick={toggleLanguage} className={styles.btn}>
       {locale === "en" ? "HU" : "EN"}
     </button>
   );

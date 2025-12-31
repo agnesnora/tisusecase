@@ -8,25 +8,49 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; // Legyen minden felett
-  backdrop-filter: blur(4px); // Modern homályosított háttér
+  z-index: 1000;
 }
 
 // A tényleges fehér ablak
 .content {
-  background: white;
+  background: var(--color-primaryBg);
   padding: 2rem;
   border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
+  width: 30%;
+  color: var(--color-primaryText);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   position: relative;
 
-  // Megjelenési animáció
   animation: modalFadeIn 0.3s ease-out;
 
-  h2 {
-    margin-top: 0;
-    color: #333;
+  h3 {
+    margin: 1rem 0;
+    font-weight: 600;
+
+    font-size: 1.5rem;
+  }
+  p {
+    margin: 1rem 0;
+  }
+  form input {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    background-color: var(--color-primaryBg);
+    border: 1px solid var(--color-tableHeaderBg);
+    border-radius: 8px;
+    color: var(--color-primaryText);
+    &:hover {
+      background-color: var(--color-secondaryBg);
+    }
+    .flex {
+      display: flex;
+      button {
+        margin-right: 1rem;
+      }
+    }
   }
 }

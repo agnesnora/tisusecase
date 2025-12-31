@@ -1,0 +1,12 @@
+.spinnerContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 200px;
+  p {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+  }
+}

@@ -31,13 +31,21 @@
     "electricity": "Villany",
     "gas": "Gáz",
     "allTypes": "Minden Típus",
-    "show": "Megjelenítés"
+    "show": "Megjelenítés",
+    "next": "Következő",
+    "previous": "Előző"
   },
   "dashboard": {
     "gas": "Gázfogyasztás",
     "electricity": "Áramfogyasztás",
     "period": "Fogyasztási hónap"
   },
+  "map": {
+    "legend": "Jelmagyarázat",
+    "electricity": "Áramfogyasztás mérő",
+    "gas": "Gázfogyasztás mérő"
+  },
+
   "readings": {
     "title": "Leolvasások",
     "value": "Érték",
@@ -63,7 +71,11 @@
     "addNewReadingToConsumer": "Új fogyasztás hozzáadása a fogyasztóhoz",
     "addNew": "Új érték hozzáadása",
     "selectMonth": "Hónap kiválasztása",
-    "value": "Érték"
+    "value": "Érték",
+    "readingNotSaved": "Mérés mentése sikertelen",
+    "readingNotDeleted": "Mérés törlése sikertelen",
+    "readingSaved": "Mérés mentve",
+    "readingDeleted": "Mérés törölve"
   },
   "actions": {
     "editReading": "Mérés szerkesztése",
@@ -76,6 +88,15 @@
     "readingNotSaved": "Mérés mentése sikertelen",
     "readingNotDeleted": "Mérés törlése sikertelen",
     "validationError": "Hitelesítési hiba, nézd meg az értéket"
+  },
+  "loading": {
+    "loading": "Folyamatban..."
+  },
+
+  "not-found": {
+    "message": "Sajnáljuk, a keresett oldal nem található.",
+    "back-home": "Vissza a főoldalra",
+    "title": "Nem található 404"
   },
   "toast": {},
   "validation": {

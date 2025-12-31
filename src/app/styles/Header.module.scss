@@ -18,30 +18,30 @@
   .profileContainer {
     display: flex;
     align-items: center;
-    .themeButton {
+    .btn {
       background-color: transparent;
-      padding: 0.5rem;
-      border-radius: 100;
-
       border: none;
+      padding: 0.5rem;
       cursor: pointer;
       &:hover {
-        border: solid 2px var(--color-btnBg);
+        background-color: var(--color-secondaryBg);
+
+        border-radius: 50;
       }
     }
-    .profileInfo {
-      h4 {
-        font-weight: 600;
-      }
-      p {
-        font-weight: 200;
-        margin-top: 0.1rem;
-        font-size: 0.9rem;
-      }
+  }
+  .profileInfo {
+    h4 {
+      font-weight: 600;
     }
-    .profilePic {
-      border-radius: 100;
-      margin: 0 0.8rem;
+    p {
+      font-weight: 200;
+      margin-top: 0.1rem;
+      font-size: 0.9rem;
     }
+  }
+  .profilePic {
+    border-radius: 100;
+    margin: 0 0.8rem;
   }
 }

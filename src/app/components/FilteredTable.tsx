@@ -46,6 +46,7 @@ const FilteredTable = () => {
   const metersColumns: ColumnDef<MeterWithReadingsType>[] = useMemo(
     () => [
       { accessorKey: "id", header: () => i18nMet("id"), enableSorting: true },
+
       {
         accessorKey: "label",
         header: () => i18nMet("label"),
@@ -84,6 +85,7 @@ const FilteredTable = () => {
 
   const handleRowClick = (rowId: string) => {
     router.push(`/meters/${rowId}`);
+    window.open(`/meters/${rowId}`, "_blank", "noopener,noreferrer");
   };
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -109,9 +111,6 @@ const FilteredTable = () => {
     onSortingChange: setSorting,
   });
 
-  if (metersQuery.isLoading || readingsQuery.isLoading) {
-    return <div>Loading...</div>;
-  }
   if (metersQuery.isError || readingsQuery.isError) {
     return <div>Error fetching data</div>;
   }
@@ -135,38 +134,6 @@ const FilteredTable = () => {
       </div>
       <table>
         <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  <div
-                    onClick={header.column.getToggleSortingHandler()}
-                    style={{
-                      cursor: header.column.getCanSort()
-                        ? "pointer"
-                        : "default",
-                    }}
-                  >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-                    {header.column.getCanSort() && (
-                      <span>
-                        {header.column.getIsSorted() === "asc" ? (
-                          <TiArrowSortedUp />
-                        ) : header.column.getIsSorted() === "desc" ? (
-                          <TiArrowSortedDown />
-                        ) : (
-                          <TiArrowUnsorted />
-                        )}
-                      </span>
-                    )}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
           <tr className={styles.filterRow}>
             <td></td>
             <td></td>
@@ -188,8 +155,45 @@ const FilteredTable = () => {
                 <option value="gas">{i18nMet("gas")}</option>
               </select>
             </td>
-            <td></td> {/* Latest Reading oszlop - üres */}
+            <td></td>
           </tr>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id}>
+                  <div
+                    onClick={header.column.getToggleSortingHandler()}
+                    style={{
+                      cursor: header.column.getCanSort()
+                        ? "pointer"
+                        : "default",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: "4px",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {header.column.getCanSort() && (
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        {header.column.getIsSorted() === "asc" ? (
+                          <TiArrowSortedUp />
+                        ) : header.column.getIsSorted() === "desc" ? (
+                          <TiArrowSortedDown />
+                        ) : (
+                          <TiArrowUnsorted />
+                        )}
+                      </span>
+                    )}
+                  </div>
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
@@ -218,7 +222,7 @@ const FilteredTable = () => {
           }}
         >
           <span className={styles.spanFlexLeft}>
-            <BsArrowLeft /> Previous
+            <BsArrowLeft /> {i18nMet("previous")}
           </span>
         </button>
 
@@ -247,7 +251,7 @@ const FilteredTable = () => {
         >
           <span className={styles.spanFlexRight}>
             <BsArrowRight />
-            Next
+            {i18nMet("next")}
           </span>
         </button>
       </div>

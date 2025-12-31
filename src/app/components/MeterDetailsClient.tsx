@@ -58,6 +58,10 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     mutationFn: deleteReadingById,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
+      toast.success(i18nStats("readingDeleted"));
+    },
+    onError: () => {
+      toast.error(i18nStats("readingNotDeleted"));
     },
   });
 
@@ -77,17 +81,14 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     mutationFn: ({ id, data }: { id: string; data: EditType }) =>
       editReading(id, data),
     onSuccess: (partialResponse, variables) => {
-      // Megkeressük az eredeti reading-et
       const originalReading = readings.find((r) => r.id === variables.id);
 
       if (originalReading) {
-        // Teljes objektum létrehozása
         const updatedReading: ReadingType = {
           ...originalReading,
           value: variables.data.value,
         };
 
-        // Cache frissítése a teljes objektummal
         queryClient.setQueryData(
           ["readings", meter.id],
           (oldData: ReadingType[]) =>
@@ -95,7 +96,11 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
               reading.id === variables.id ? updatedReading : reading
             ) || []
         );
+        toast.success(i18nStats("readingSaved"));
       }
+    },
+    onError: () => {
+      toast.error(i18nStats("readingNotSaved"));
     },
   });
   const {

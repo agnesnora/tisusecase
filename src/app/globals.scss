@@ -27,6 +27,9 @@ body {
   --chart-axis: var(--color-primaryText);
   --chart-tick: var(--color-primaryText);
   --chart-grid: #f8f8f8;
+  --color-tableBorder: var(--color-tableHeaderBg);
+  --color-btnHover: #ffb703;
+  --color-linkHover: var(--color-mainBg);
 
   --color-m1: #ff4d6d;
   --color-m2: #ffb703;
@@ -42,6 +45,10 @@ body {
   --color-average: #f7ede2;
   --color-highest: #dfecea;
   --color-lowest: #ddeff2;
+
+  --color-success: #5f8f6b;
+  --color-warning: #ffcb47;
+  --color-danger: #c84a3d;
 }
 [data-theme="dark"] {
   --color-primaryBg: #1c1c1c;
@@ -55,10 +62,14 @@ body {
   --color-btnText: #3b3c36;
   --color-chartBg: var(--color-secondaryBg);
   --color-chartBg: #31363f;
-  --color-tableHeaderBg: #dfecea;
+  --color-tableHeaderBg: #76abae;
+
   --color-tableRow: var(--color-secondaryBg);
-  --color-tableHoverRow: #ebebea;
-  --color-linkText: var(--color-primaryText);
+  --color-tableHoverRow: #2d4c4d;
+  --color-linkText: var(--color-primaryBg);
   --color-linkActiveBg: var(--color-primaryBg);
-  --color-mainBg: #111418;
+  --color-mainBg: var(--color-tableHeaderBg);
+  --color-mainBg: var(--color-primaryBg);
+  --color-tableBorder: var(--color-tableHeaderBg);
+  --color-linkHover: var(--color-tableHeaderBg);
 }
