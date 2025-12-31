@@ -21,7 +21,15 @@ export const calculateConsumption = (
 };
 
 export const calculateMeterStats = (readings: ReadingType[]) => {
-  const sortedReadings = [...readings].sort(orderReadingsAsc);
+  const validReadings = readings.filter(
+    (r) =>
+      r.meterId != null &&
+      r.month != null &&
+      r.year != null &&
+      r.value !== undefined
+  );
+
+  const sortedReadings = [...validReadings].sort(orderReadingsAsc);
   const readingsWithConsumption = sortedReadings.map((reading, index) => {
     const previousReading = index > 0 ? sortedReadings[index - 1] : undefined;
     const consumption = calculateConsumption(reading, previousReading);

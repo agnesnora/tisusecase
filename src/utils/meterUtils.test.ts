@@ -3,7 +3,7 @@ import { ReadingType } from "./../schemas/readings";
 import { describe, expect, test } from "vitest";
 import { calculateConsumption } from "./meterUtils";
 import { separateMetersByType } from "./meterUtils";
-import { MeterType } from "@/schemas/meters";
+import { MeterType } from "../schemas/meters";
 
 //Testing calculateConsumption
 

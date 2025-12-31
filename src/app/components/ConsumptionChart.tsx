@@ -15,11 +15,8 @@ import { useTranslations } from "next-intl";
 interface ConsumptionChartProps {
   data: {
     date: string;
-    meters: {
-      meterId: string;
-      consumption: number;
-    }[];
     total: number;
+    [meterId: string]: string | number; // Ez engedi a dinamikus mérő ID-kat
   }[];
   unit: string;
   type: "electricity" | "gas";
@@ -39,6 +36,18 @@ const colors = [
 
 const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
   const i18nDash = useTranslations("dashboard");
+  const meterIds = React.useMemo(() => {
+    const keys = new Set<string>();
+    data.forEach((item) => {
+      Object.keys(item).forEach((key) => {
+        if (key !== "date" && key !== "total") {
+          keys.add(key);
+        }
+      });
+    });
+
+    return Array.from(keys);
+  }, [data]);
   return (
     <div className={styles.wrapper}>
       <h2>
@@ -112,17 +121,24 @@ const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
           )}
         />
 
-        {data[0]?.meters.map((meter, index) => (
+        {meterIds.map((id, index) => (
           <Bar
-            className={styles.bar}
-            key={index}
-            name={meter.meterId}
-            dataKey={`meters.${index}.consumption`}
+            key={id}
+            name={id} // Itt jelenik meg a mérő ID-ja a Legendben
+            dataKey={id} // Ez mondja meg a Recharts-nak, melyik kulcsot keresse
             stackId="a"
             fill={colors[index % colors.length]}
-            style={{ filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))" }}
           />
         ))}
+        {/* {data[0]?.meters.map((meter, index) => (
+          <Bar
+            key={meter.meterId}
+            name={meter.meterId}
+            dataKey={`meters[${index}].consumption`}
+            stackId="a"
+            fill={colors[index % colors.length]}
+          />
+        ))} */}
       </BarChart>
     </div>
   );

@@ -1,5 +1,5 @@
-import { MeterType } from "@/schemas/meters";
-import { ReadingType } from "@/schemas/readings";
+import { MeterType } from "../schemas/meters";
+import { ReadingType } from "../schemas/readings";
 import { orderReadingsDesc } from "./dateOrderHelper";
 export const combineMetersWithLatestReading = (
   meters: MeterType[],

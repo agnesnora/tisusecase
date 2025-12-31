@@ -1,14 +1,29 @@
-import { MeterType } from "@/schemas/meters";
-import { ReadingType } from "@/schemas/readings";
-import { calculateConsumption, separateMetersByType } from "@/utils/meterUtils";
+import { MeterType } from "../schemas/meters";
+import { ReadingType } from "../schemas/readings";
+import {
+  calculateConsumption,
+  separateMetersByType,
+} from "../utils/meterUtils";
 
-import { monthOrder } from "@/utils/dateOrderHelper";
-import { ReadingWithConsumption } from "@/schemas/readings";
+import { monthOrder, orderReadingsAsc } from "../utils/dateOrderHelper";
+import { ReadingWithConsumption } from "../schemas/readings";
 
-const calculateForType = (readings: ReadingType[], meters: MeterType[]) => {
-  const meterIds = meters.map((m) => m.id);
-  const filteredReadings = readings.filter((r) => meterIds.includes(r.meterId));
-  const reaingsByMeterWithConsumption = filteredReadings.reduce<
+export const calculateForType = (
+  readings: ReadingType[],
+  meters: MeterType[]
+) => {
+  const meterIds = meters.map((meter) => meter.id);
+  const filteredReadings = readings
+    .filter(
+      (reading) =>
+        reading.meterId != null &&
+        reading.month != null &&
+        reading.year != null &&
+        reading.value !== undefined
+    )
+    .filter((reading) => meterIds.includes(reading.meterId));
+
+  const readingsByMeterWithConsumption = filteredReadings.reduce<
     Record<string, ReadingWithConsumption[]>
   >((acc, reading) => {
     //Get existing readings for this meter (or empty array if none)
@@ -33,29 +48,44 @@ const calculateForType = (readings: ReadingType[], meters: MeterType[]) => {
     acc[reading.meterId] = [...meterReadings, readingWithConsumption];
     return acc;
   }, {});
-  return reaingsByMeterWithConsumption;
+  return readingsByMeterWithConsumption;
 };
-const groupByMonth = (
-  readingsByMeterWithConsumption: Record<string, ReadingWithConsumption[]>
-) => {
-  const allReadings = Object.values(readingsByMeterWithConsumption).flat();
-  const monthlyData = allReadings.reduce((acc, reading) => {
-    const date = reading.date;
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push({
-      meterId: reading.meterId,
-      consumption: reading.consumption,
-    });
-    return acc;
-  }, {} as Record<string, { meterId: string; consumption: number }[]>);
 
-  return Object.entries(monthlyData).map(([date, meters]) => ({
-    date,
-    meters,
-    total: meters.reduce((sum, meter) => sum + meter.consumption, 0), // ← Total!
-  }));
+type MonthlyDataPoint = {
+  date: string;
+  total: number;
+  [meterId: string]: string | number;
+};
+export const groupByMonth = (
+  readingsByMeterWithConsumption: Record<string, ReadingWithConsumption[]>
+): MonthlyDataPoint[] => {
+  const allReadings = Object.values(readingsByMeterWithConsumption).flat();
+
+  const monthlyData = allReadings.reduce<Record<string, MonthlyDataPoint>>(
+    (acc, reading) => {
+      const date = reading.date;
+
+      if (!acc[date]) {
+        acc[date] = {
+          date,
+          total: 0,
+        };
+      }
+
+      // Érték hozzáadása a konkrét mérőhöz
+      acc[date][reading.meterId] = reading.consumption;
+
+      // Számszerű összesítés
+      acc[date].total += reading.consumption;
+
+      return acc;
+    },
+    {}
+  );
+
+  return Object.values(monthlyData).sort((a, b) =>
+    a.date.localeCompare(b.date)
+  );
 };
 
 export const calculateMonthlyConsumption = (
