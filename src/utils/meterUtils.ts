@@ -1,6 +1,6 @@
 import { MeterType } from "@/schemas/meters";
 import { ReadingType } from "@/schemas/readings";
-import { orderReadingsAsc } from "./dateOrderHelper";
+import { orderReadingsAsc, monthOrder } from "./dateOrderHelper";
 //creating 2 arrays to store gas type and electricity type meters
 export const separateMetersByType = (meters: MeterType[]) => {
   const gasMeters = meters.filter((meter) => meter.type === "gas");
@@ -30,6 +30,17 @@ export const calculateMeterStats = (readings: ReadingType[]) => {
   );
 
   const sortedReadings = [...validReadings].sort(orderReadingsAsc);
+
+  const firstReadingYear = sortedReadings[0]?.year;
+  const firstReadingMonth = monthOrder[sortedReadings[0]?.month];
+  const latestReadingYear = sortedReadings[sortedReadings.length - 1]?.year;
+  const latestReadingMonth =
+    monthOrder[sortedReadings[sortedReadings.length - 1]?.month];
+
+  const allNumOfMonths =
+    (latestReadingYear - firstReadingYear) * 12 +
+    (latestReadingMonth - firstReadingMonth) +
+    1;
   const readingsWithConsumption = sortedReadings.map((reading, index) => {
     const previousReading = index > 0 ? sortedReadings[index - 1] : undefined;
     const consumption = calculateConsumption(reading, previousReading);
@@ -56,11 +67,13 @@ export const calculateMeterStats = (readings: ReadingType[]) => {
 
   return {
     average:
-      consumptionValues.reduce((acc, curr) => acc + curr, 0) /
-      consumptionValues.length,
+      allNumOfMonths > 0
+        ? consumptionValues.reduce((acc, curr) => acc + curr, 0) /
+          allNumOfMonths
+        : 0,
     highest,
     lowest,
-    highestMonth: validConsumptions.find((r) => r.consumption === highest),
-    lowestMonth: validConsumptions.find((r) => r.consumption === lowest),
+    highestMonth: validConsumptions.findLast((r) => r.consumption === highest),
+    lowestMonth: validConsumptions.findLast((r) => r.consumption === lowest),
   };
 };

@@ -2404,6 +2404,13 @@
       "year": 2025,
       "value": 1700,
       "meterId": "0003"
+    },
+    {
+      "id": "7b50",
+      "month": "MAY",
+      "year": 2025,
+      "value": 123,
+      "meterId": "0006"
     }
   ]
 }

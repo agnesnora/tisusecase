@@ -5,8 +5,8 @@ import {
   separateMetersByType,
 } from "../utils/meterUtils";
 
-import { monthOrder, orderReadingsAsc } from "../utils/dateOrderHelper";
 import { ReadingWithConsumption } from "../schemas/readings";
+import { monthOrder, orderReadingsAsc } from "../utils/dateOrderHelper";
 
 export const calculateForType = (
   readings: ReadingType[],
@@ -21,7 +21,8 @@ export const calculateForType = (
         reading.year != null &&
         reading.value !== undefined
     )
-    .filter((reading) => meterIds.includes(reading.meterId));
+    .filter((reading) => meterIds.includes(reading.meterId))
+    .sort(orderReadingsAsc);
 
   const readingsByMeterWithConsumption = filteredReadings.reduce<
     Record<string, ReadingWithConsumption[]>
@@ -72,10 +73,10 @@ export const groupByMonth = (
         };
       }
 
-      // Érték hozzáadása a konkrét mérőhöz
+      // Add value to meterId
       acc[date][reading.meterId] = reading.consumption;
 
-      // Számszerű összesítés
+      //Sum up total
       acc[date].total += reading.consumption;
 
       return acc;

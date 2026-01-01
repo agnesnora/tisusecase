@@ -1,22 +1,22 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import React from "react";
 import {
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
 } from "recharts";
 import styles from "../styles/ConsumptionChart.module.scss";
-import { useTranslations } from "next-intl";
 interface ConsumptionChartProps {
   data: {
     date: string;
     total: number;
-    [meterId: string]: string | number; // Ez engedi a dinamikus mérő ID-kat
+    [meterId: string]: string | number;
   }[];
   unit: string;
   type: "electricity" | "gas";
@@ -124,21 +124,12 @@ const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
         {meterIds.map((id, index) => (
           <Bar
             key={id}
-            name={id} // Itt jelenik meg a mérő ID-ja a Legendben
-            dataKey={id} // Ez mondja meg a Recharts-nak, melyik kulcsot keresse
+            name={id}
+            dataKey={id}
             stackId="a"
             fill={colors[index % colors.length]}
           />
         ))}
-        {/* {data[0]?.meters.map((meter, index) => (
-          <Bar
-            key={meter.meterId}
-            name={meter.meterId}
-            dataKey={`meters[${index}].consumption`}
-            stackId="a"
-            fill={colors[index % colors.length]}
-          />
-        ))} */}
       </BarChart>
     </div>
   );

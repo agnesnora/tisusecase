@@ -184,13 +184,53 @@ describe("calculateMeterStats", () => {
 
     const result = calculateMeterStats(readings);
 
-    expect(result.average).toEqual(20);
+    expect(result.average).toEqual(15);
     expect(result.highest).toEqual(30);
     expect(result.lowest).toEqual(10);
     expect(result.highestMonth?.month).toBe("SEP");
     expect(result.lowestMonth?.month).toBe("JUL");
   });
-
+  test("should return the correct average of the entire time intervall including all months, even if there are no readings in some following months", () => {
+    const readings: ReadingType[] = [
+      {
+        id: "6",
+        meterId: "0002",
+        month: "JAN",
+        year: 2025,
+        value: 170,
+      },
+      {
+        id: "6",
+        meterId: "0002",
+        month: "FEB",
+        year: 2025,
+        value: 190,
+      },
+      {
+        id: "8",
+        meterId: "0002",
+        month: "SEP",
+        year: 2024,
+        value: 160,
+      },
+      {
+        id: "7",
+        meterId: "0002",
+        month: "AUG",
+        year: 2024,
+        value: 130,
+      },
+      {
+        id: "5",
+        meterId: "0002",
+        month: "JUN",
+        year: 2024,
+        value: 100,
+      },
+    ];
+    const result = calculateMeterStats(readings);
+    expect(result.average).toEqual(10);
+  });
   test("Returns default values when the array is empty", () => {
     const readings: ReadingType[] = [];
     const result = calculateMeterStats(readings);
@@ -242,7 +282,7 @@ describe("calculateMeterStats", () => {
       },
     ];
     const result = calculateMeterStats(readings);
-    expect(result.average).toEqual(30);
+    expect(result.average).toEqual(10);
     expect(result.highest).toEqual(30);
     expect(result.lowest).toEqual(30);
     expect(result.highestMonth?.month).toBe("AUG");

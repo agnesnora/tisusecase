@@ -3,32 +3,32 @@
 import { MeterType } from "@/schemas/meters";
 import {
   AddReadingSchema,
-  ReadingType,
   AddReadingType,
   EditType,
+  ReadingType,
 } from "@/schemas/readings";
 
-import React, { useState } from "react";
-import Table from "./Table";
-import ReadingModal from "./ReadingModal";
-import { orderReadingsDesc } from "@/utils/dateOrderHelper";
-import { calculateMeterStats } from "@/utils/meterUtils";
-import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import {
-  deleteReadingById,
-  fetchReadingsByMeterId,
   addReading,
+  deleteReadingById,
   editReading,
+  fetchReadingsByMeterId,
 } from "@/utils/api/readings";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { getAvailableDates } from "@/utils/availableMonths";
+import { orderReadingsDesc } from "@/utils/dateOrderHelper";
+import { formatUnit } from "@/utils/formatUnit";
+import { calculateMeterStats } from "@/utils/meterUtils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import styles from "../styles/MeterDetailsClient.module.scss";
 import { Button } from "./Button";
 import { InfoBox } from "./InfoBox";
-import { formatUnit } from "@/utils/formatUnit";
-import { useTranslations } from "next-intl";
+import ReadingModal from "./ReadingModal";
+import Table from "./Table";
 interface MeterDetailsClientProps {
   meter: MeterType;
 }

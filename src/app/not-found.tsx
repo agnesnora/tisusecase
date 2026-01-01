@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import styles from "./not-found.module.scss";
 export default function NotFound() {
   const i18nNf = useTranslations("not-found");

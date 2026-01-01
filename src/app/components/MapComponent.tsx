@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
-import { renderToStaticMarkup } from "react-dom/server";
 import { MeterType } from "@/schemas/meters";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css"; // CSS import fontos
-import iconUrl from "leaflet/dist/images/marker-icon.png";
 import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
+import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
-import { LuZap, LuFlame } from "react-icons/lu";
+import "leaflet/dist/leaflet.css";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { renderToStaticMarkup } from "react-dom/server";
+import { LuFlame, LuZap } from "react-icons/lu";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 
 import styles from "../styles/MapComponent.module.scss";
 
@@ -40,7 +40,7 @@ const FitMapBounds = ({ gasMeters, electricityMeters }: MapComponentProps) => {
 
   return null;
 };
-// Gáz ikon létrehozása (Narancssárga)
+
 const gasIconHTML = renderToStaticMarkup(
   <div className={`${styles.icon} ${styles.gas}`}>
     <LuFlame size={20} />

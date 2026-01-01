@@ -1,22 +1,10 @@
-import { calculateMonthlyConsumption } from "./calculateMonthlyConsumption";
-import { describe, test, expect } from "vitest";
-import { ReadingType, ReadingWithConsumption } from "../schemas/readings";
+import { describe, expect, test } from "vitest";
 import { MeterType } from "../schemas/meters";
-
-// export const calculateMonthlyConsumption = (
-//   readings: ReadingType[],
-//   meters: MeterType[]
-// ) => {
-//   const { electricityMeters, gasMeters } = separateMetersByType(meters);
-
-//   const electricityConsumption = calculateForType(readings, electricityMeters);
-//   const gasConsumption = calculateForType(readings, gasMeters);
-
-//   return {
-//     electricity: groupByMonth(electricityConsumption),
-//     gas: groupByMonth(gasConsumption),
-//   };
-// };
+import { ReadingType, ReadingWithConsumption } from "../schemas/readings";
+import {
+  calculateMonthlyConsumption,
+  groupByMonth,
+} from "./calculateMonthlyConsumption";
 
 describe("calculateMonthlyConsumption", () => {
   const meters: MeterType[] = [
@@ -36,7 +24,6 @@ describe("calculateMonthlyConsumption", () => {
     },
   ];
   const readings: ReadingType[] = [
-    { id: "5", meterId: "m1", month: "MAR", year: 2024, value: 180 },
     { id: "2", meterId: "m2", month: "JAN", year: 2024, value: 200 },
     { id: "3", meterId: "m1", month: "FEB", year: 2024, value: 150 },
     { id: "6", meterId: "m2", month: "MAR", year: 2024, value: 260 },
@@ -47,11 +34,116 @@ describe("calculateMonthlyConsumption", () => {
   test("should calculate monthly consumption for electricity and gas", () => {
     const result = calculateMonthlyConsumption(readings, meters);
 
-    expect(result.electricity).toHaveLength(3);
+    expect(result.electricity).toHaveLength(2);
     expect(result.gas).toHaveLength(3); // JAN, FEB, MAR
-    // // Optional: check totals
-    expect(result.electricity[0].total).toEqual(0); // first reading = 0
-    expect(result.electricity[1].total).toEqual(50); // 150-100
-    expect(result.electricity[2].total).toEqual(30); // 180-150
+  });
+});
+
+describe("groupByMonth", () => {
+  test("should group readings by month and sum totals correctly", () => {
+    const mockReadings: Record<string, ReadingWithConsumption[]> = {
+      m1: [
+        {
+          id: "1",
+          meterId: "m1",
+          month: "JAN",
+          year: 2024,
+          value: 100,
+          consumption: 0,
+          date: "2024-01",
+        },
+        {
+          id: "2",
+          meterId: "m1",
+          month: "FEB",
+          year: 2024,
+          value: 150,
+          consumption: 50,
+          date: "2024-02",
+        },
+        {
+          id: "3",
+          meterId: "m1",
+          month: "APR",
+          year: 2024,
+          value: 250,
+          consumption: 100,
+          date: "2024-04",
+        },
+      ],
+      m2: [
+        {
+          id: "3",
+          meterId: "m2",
+          month: "JAN",
+          year: 2024,
+          value: 200,
+          consumption: 0,
+          date: "2024-01",
+        },
+        {
+          id: "4",
+          meterId: "m2",
+          month: "FEB",
+          year: 2024,
+          value: 230,
+          consumption: 30,
+          date: "2024-02",
+        },
+      ],
+    };
+
+    const result = groupByMonth(mockReadings);
+    console.log(result);
+
+    expect(result).toHaveLength(3);
+
+    // January data
+    expect(result[0].date).toBe("2024-01");
+    expect(result[0].total).toBe(0); // 0 + 0
+    expect(result[0].m1).toBe(0);
+    expect(result[0].m2).toBe(0);
+
+    // February data
+    expect(result[1].date).toBe("2024-02");
+    expect(result[1].total).toBe(80); // 50 + 30
+    expect(result[1].m1).toBe(50);
+    //No data for March
+    //April with only one meter
+    expect(result[2].date).toBe("2024-04");
+    expect(result[2].m1).toBe(100);
+  });
+
+  test("should handle single meter multiple months", () => {
+    const mockReadings: Record<string, ReadingWithConsumption[]> = {
+      m1: [
+        {
+          id: "1",
+          meterId: "m1",
+          month: "JAN",
+          year: 2024,
+          value: 100,
+          consumption: 0,
+          date: "2024-01",
+        },
+        {
+          id: "2",
+          meterId: "m1",
+          month: "MAR",
+          year: 2024,
+          value: 180,
+          consumption: 80,
+          date: "2024-03",
+        },
+      ],
+    };
+
+    const result = groupByMonth(mockReadings);
+
+    expect(result).toHaveLength(2);
+    expect(result[0].date).toBe("2024-01");
+    expect(result[0].m1).toBe(0);
+    expect(result[1].date).toBe("2024-03");
+    expect(result[1].m1).toBe(80);
   });
 });

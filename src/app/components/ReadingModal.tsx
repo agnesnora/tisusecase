@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { ReadingType, EditSchema } from "@/schemas/readings";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import styles from "../styles/ReadingModal.module.scss";
+import { EditSchema, ReadingType } from "@/schemas/readings";
 import { validateMonotonicValue } from "@/utils/validateMonotonicValue";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import styles from "../styles/ReadingModal.module.scss";
 import { Button } from "./Button";
 interface ReadingModalProps {
   currentReading: ReadingType | null;

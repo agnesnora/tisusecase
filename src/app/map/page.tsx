@@ -1,4 +1,3 @@
-import React from "react";
 import { fetchMetersList } from "@/utils/api/meters";
 import MapWrapper from "../components/MapWrapper";
 import styles from "./page.module.scss";

@@ -1,15 +1,14 @@
-import type { Metadata } from "next";
-import { Bebas_Neue, Plus_Jakarta_Sans, Inter } from "next/font/google";
-import "./globals.scss";
 import "leaflet/dist/leaflet.css";
-import Navbar from "./components/Navbar";
+import type { Metadata } from "next";
+import { Bebas_Neue, Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Header from "./components/Header";
+import Navbar from "./components/Navbar";
+import "./globals.scss";
 import styles from "./Layout.module.scss";
 
 import Providers from "@/app/providers/Providers";
-import { ToastContainer } from "react-toastify";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { ToastContainer } from "react-toastify";
 const bebasNeue = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],

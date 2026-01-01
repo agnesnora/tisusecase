@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import styles from "../styles/Navbar.module.scss";
-import { TbMap2 } from "react-icons/tb";
-import { PiGaugeFill } from "react-icons/pi";
 import { BiSolidDashboard } from "react-icons/bi";
-import { useTranslations } from "next-intl";
+import { PiGaugeFill } from "react-icons/pi";
+import { TbMap2 } from "react-icons/tb";
+import styles from "../styles/Navbar.module.scss";
 
 const Navbar = () => {
   const i18nNav = useTranslations("navigation");

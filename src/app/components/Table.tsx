@@ -1,18 +1,18 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { TbTrash, TbEdit } from "react-icons/tb";
 import {
   ColumnDef,
   flexRender,
-  useReactTable,
   getCoreRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
+import { useMemo } from "react";
+import { TbEdit, TbTrash } from "react-icons/tb";
 
 import { ReadingType } from "@/schemas/readings";
-import styles from "../styles/Table.module.scss";
 import { formatUnit } from "@/utils/formatUnit";
 import { useTranslations } from "next-intl";
+import styles from "../styles/Table.module.scss";
 
 interface ReadingsTableProps {
   data: ReadingType[];
@@ -73,10 +73,6 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-
-    // state: {
-    //   sorting,
-    // },
   });
 
   return (

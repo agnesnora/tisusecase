@@ -1,5 +1,5 @@
-import { fetchMeterById } from "@/utils/api/meters";
 import MeterDetailsClient from "@/app/components/MeterDetailsClient";
+import { fetchMeterById } from "@/utils/api/meters";
 import styles from "./page.module.scss";
 export default async function MeterDetailPage({
   params,

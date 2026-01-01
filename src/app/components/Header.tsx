@@ -1,12 +1,11 @@
 "use client";
-import React from "react";
-import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { PiSunDimFill, PiMoonStarsFill } from "react-icons/pi";
-import { useTheme } from "./ThemeProvider";
-import styles from "../styles/Header.module.scss";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { PiMoonStarsFill, PiSunDimFill } from "react-icons/pi";
+import styles from "../styles/Header.module.scss";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { useTheme } from "./ThemeProvider";
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
