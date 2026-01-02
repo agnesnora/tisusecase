@@ -21,7 +21,7 @@ npm install
 ### 2.Start mock server
 
 ```
-npx json-server --watch "db 1.json" --port 3000
+npx json-server --watch "db 1.json" --port 3001
 
 ```
 
