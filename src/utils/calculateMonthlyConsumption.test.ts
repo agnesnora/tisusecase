@@ -94,7 +94,6 @@ describe("groupByMonth", () => {
     };
 
     const result = groupByMonth(mockReadings);
-    console.log(result);
 
     expect(result).toHaveLength(3);
 
