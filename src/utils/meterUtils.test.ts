@@ -184,7 +184,7 @@ describe("calculateMeterStats", () => {
 
     const result = calculateMeterStats(readings);
 
-    expect(result.average).toEqual(15);
+    expect(result.average).toEqual(20);
     expect(result.highest).toEqual(30);
     expect(result.lowest).toEqual(10);
     expect(result.highestMonth?.month).toBe("SEP");
@@ -229,7 +229,7 @@ describe("calculateMeterStats", () => {
       },
     ];
     const result = calculateMeterStats(readings);
-    expect(result.average).toEqual(10);
+    expect(result.average).toEqual(11.25);
   });
   test("Returns default values when the array is empty", () => {
     const readings: ReadingType[] = [];
@@ -282,7 +282,7 @@ describe("calculateMeterStats", () => {
       },
     ];
     const result = calculateMeterStats(readings);
-    expect(result.average).toEqual(10);
+    expect(result.average).toEqual(15);
     expect(result.highest).toEqual(30);
     expect(result.lowest).toEqual(30);
     expect(result.highestMonth?.month).toBe("AUG");

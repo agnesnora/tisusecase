@@ -39,8 +39,7 @@ export const calculateMeterStats = (readings: ReadingType[]) => {
 
   const allNumOfMonths =
     (latestReadingYear - firstReadingYear) * 12 +
-    (latestReadingMonth - firstReadingMonth) +
-    1;
+    (latestReadingMonth - firstReadingMonth);
   const readingsWithConsumption = sortedReadings.map((reading, index) => {
     const previousReading = index > 0 ? sortedReadings[index - 1] : undefined;
     const consumption = calculateConsumption(reading, previousReading);

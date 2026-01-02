@@ -7,7 +7,7 @@ import "./globals.scss";
 import styles from "./Layout.module.scss";
 
 import Providers from "@/app/providers/Providers";
-import { NextIntlClientProvider } from "next-intl";
+
 import { ToastContainer } from "react-toastify";
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -38,22 +38,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html>
+    <html lang="hu">
       <body
         className={`${bebasNeue.variable} ${plusJakartaSans.variable} ${inter.variable}`}
       >
-        <NextIntlClientProvider>
-          <Providers>
-            <div className={styles.appContainer}>
-              <Navbar />
-              <div className={styles.mainContainer}>
-                <Header />
-                <main>{children}</main>
-              </div>
+        <Providers>
+          <div className={styles.appContainer}>
+            <Navbar />
+            <div className={styles.mainContainer}>
+              <Header />
+              <main>{children}</main>
             </div>
-            <ToastContainer />
-          </Providers>
-        </NextIntlClientProvider>
+          </div>
+          <ToastContainer />
+        </Providers>
       </body>
     </html>
   );

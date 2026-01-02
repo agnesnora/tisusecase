@@ -5,7 +5,7 @@ import iconRetinaUrl from "leaflet/dist/images/marker-icon-2x.png";
 import iconUrl from "leaflet/dist/images/marker-icon.png";
 import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import "leaflet/dist/leaflet.css";
-import { useTranslations } from "next-intl";
+
 import { useEffect } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { LuFlame, LuZap } from "react-icons/lu";
@@ -67,7 +67,6 @@ const customElecIcon = L.divIcon({
   iconAnchor: [16, 32],
 });
 const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
-  const i18nMap = useTranslations("map");
   return (
     <div className={styles.container}>
       <MapContainer
@@ -102,7 +101,7 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
         ))}
       </MapContainer>
       <div className={styles.legend}>
-        <h4>{i18nMap("legend")}</h4>
+        <h4>Legend</h4>
         <ul>
           <li>
             <LuFlame
@@ -110,7 +109,7 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
               className={`${styles.icon} ${styles.gas} ${styles.legendIcon}`}
             />
 
-            <span>{i18nMap("gas")}</span>
+            <span>Meters of Gas</span>
           </li>
           <li>
             <LuZap
@@ -118,7 +117,7 @@ const MapComponent = ({ gasMeters, electricityMeters }: MapComponentProps) => {
               className={`${styles.icon} ${styles.electric} ${styles.legendIcon}`}
             />
 
-            <span>{i18nMap("electricity")}</span>
+            <span>Meters of Electricity</span>
           </li>
         </ul>
       </div>

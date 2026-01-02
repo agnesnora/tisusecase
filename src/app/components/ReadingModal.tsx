@@ -1,7 +1,7 @@
 import { EditSchema, ReadingType } from "@/schemas/readings";
 import { validateMonotonicValue } from "@/utils/validateMonotonicValue";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "../styles/ReadingModal.module.scss";
@@ -26,7 +26,6 @@ const ReadingModal = ({
   mode,
   allReadings,
 }: ReadingModalProps & { allReadings: ReadingType[] }) => {
-  const i18nAct = useTranslations("actions");
   const {
     register,
     handleSubmit,
@@ -78,10 +77,8 @@ const ReadingModal = ({
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <h3>
           {mode === "edit"
-            ? `${i18nAct("editReading")} - ${currentReading.month} ${
-                currentReading.year
-              }`
-            : i18nAct("delete")}
+            ? `Edit reading - ${currentReading.month} ${currentReading.year}`
+            : "Delete reading"}
         </h3>
         {mode === "edit" ? (
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -95,22 +92,22 @@ const ReadingModal = ({
             {errors.value && <span>{errors.value.message}</span>}
             <div className={styles.flex}>
               <Button type="submit" variant="success">
-                {i18nAct("save")}
+                Save
               </Button>
               <Button type="button" variant="warning" onClick={onClose}>
-                {i18nAct("cancel")}
+                Cancel
               </Button>
             </div>
           </form>
         ) : (
           <div>
-            <h2>{i18nAct("confirmDelete")}</h2>
+            <h2>Are you sure you want to delete this reading?</h2>
             <div>
               <Button type="button" variant="danger" onClick={handleDelete}>
-                {i18nAct("delete")}
+                Delete
               </Button>
               <Button type="button" variant="warning" onClick={onClose}>
-                {i18nAct("cancel")}
+                Cancel
               </Button>
             </div>
           </div>

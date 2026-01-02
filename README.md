@@ -25,15 +25,17 @@ npx json-server --watch "db 1.json" --port 3001
 
 ```
 
-### 3. Run the Development Server
+### 3. Run application
+
+#### 3.1 Run the Development Server
 
 ```
 npm run dev
 ```
 
-Open http://localhost:3001 with your browser to see the result.
+Open http://localhost:3000 with your browser to see the result.
 
-### 4. Build for Production
+#### 3.2. Build for Production
 
 To create an optimized production build, run:
 
@@ -52,7 +54,7 @@ npm run start
 
 ```
 
-### 5.Testing
+### 4.Testing
 
 ```
 npm test

@@ -30,10 +30,8 @@ import styles from "../styles/FilteredTable.module.scss";
 import { getTypeStyle, MeterTypeEnum } from "@/utils/meterTypeStyles";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { formatUnit } from "@/utils/formatUnit";
-import { useTranslations } from "next-intl";
 
 const FilteredTable = () => {
-  const i18nMet = useTranslations("meters");
   const metersQuery = useQuery<MeterType[]>({
     queryKey: ["meters"],
     queryFn: fetchMetersList,
@@ -45,21 +43,21 @@ const FilteredTable = () => {
 
   const metersColumns: ColumnDef<MeterWithReadingsType>[] = useMemo(
     () => [
-      { accessorKey: "id", header: () => i18nMet("id"), enableSorting: true },
+      { accessorKey: "id", header: () => "id", enableSorting: true },
 
       {
         accessorKey: "label",
-        header: () => i18nMet("label"),
+        header: () => "label",
         enableSorting: true,
       },
       {
-        header: () => i18nMet("location"),
+        header: () => "location",
         accessorFn: (row) => `${row.location.lat}, ${row.location.lon}`,
         id: "location",
       },
       {
         accessorKey: "type",
-        header: () => i18nMet("type"),
+        header: () => "type",
         enableSorting: true,
         cell: ({ row }) => {
           const type = row.original.type as MeterTypeEnum;
@@ -68,7 +66,7 @@ const FilteredTable = () => {
         },
       },
       {
-        header: () => i18nMet("latestReading"),
+        header: () => "Latest reading",
         accessorFn: (row) => {
           const value = row.latestReading?.value;
           const unit = row.unit;
@@ -79,7 +77,7 @@ const FilteredTable = () => {
         enableSorting: true,
       },
     ],
-    [i18nMet]
+    []
   );
   const router = useRouter();
 
@@ -127,7 +125,7 @@ const FilteredTable = () => {
         >
           {[5, 10, 20].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              {i18nMet("show")} {pageSize}
+              Show {pageSize}
             </option>
           ))}
         </select>
@@ -150,9 +148,9 @@ const FilteredTable = () => {
                 }}
                 className={`${styles.select} ${styles.typeSelect}`}
               >
-                <option value="">{i18nMet("allTypes")}</option>
-                <option value="electricity">{i18nMet("electricity")}</option>
-                <option value="gas">{i18nMet("gas")}</option>
+                <option value="">All types</option>
+                <option value="electricity">Electricity</option>
+                <option value="gas">Gas</option>
               </select>
             </td>
             <td></td>
@@ -222,7 +220,7 @@ const FilteredTable = () => {
           }}
         >
           <span className={styles.spanFlexLeft}>
-            <BsArrowLeft /> {i18nMet("previous")}
+            <BsArrowLeft /> Previous
           </span>
         </button>
 
@@ -251,7 +249,7 @@ const FilteredTable = () => {
         >
           <span className={styles.spanFlexRight}>
             <BsArrowRight />
-            {i18nMet("next")}
+            Next
           </span>
         </button>
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 import React from "react";
 import {
   Bar,
@@ -35,7 +35,6 @@ const colors = [
 ];
 
 const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
-  const i18nDash = useTranslations("dashboard");
   const meterIds = React.useMemo(() => {
     const keys = new Set<string>();
     data.forEach((item) => {
@@ -51,7 +50,7 @@ const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
   return (
     <div className={styles.wrapper}>
       <h2>
-        {type === "electricity" ? i18nDash("electricity") : i18nDash("gas")}
+        {type === "electricity" ? "Electricity consumption" : "Gas consumption"}
       </h2>
       <BarChart
         responsive
@@ -98,7 +97,7 @@ const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
           labelFormatter={(value) => {
             if (!value) return "";
             const [year, month] = value.split("-");
-            return `${i18nDash("period")}: ${month}/${year}`;
+            return `Period: ${month}/${year}`;
           }}
         />
         <Legend

@@ -11,7 +11,7 @@ import { TbEdit, TbTrash } from "react-icons/tb";
 
 import { ReadingType } from "@/schemas/readings";
 import { formatUnit } from "@/utils/formatUnit";
-import { useTranslations } from "next-intl";
+
 import styles from "../styles/Table.module.scss";
 
 interface ReadingsTableProps {
@@ -21,25 +21,24 @@ interface ReadingsTableProps {
   onDelete: (reading: ReadingType) => void;
 }
 const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
-  const i18nRead = useTranslations("readings");
   const columns = useMemo<ColumnDef<ReadingType>[]>(
     () => [
-      { accessorKey: "year", header: () => i18nRead("year") },
-      { accessorKey: "month", header: () => i18nRead("month") },
+      { accessorKey: "year", header: () => "Year" },
+      { accessorKey: "month", header: () => "Month" },
       {
         accessorKey: "value",
-        header: () => i18nRead("reading"),
+        header: () => "reading",
         cell: (info) => `${info.getValue()}`,
       },
       {
         id: "unit",
-        header: () => i18nRead("unit"),
+        header: () => "Unit",
         cell: () => formatUnit(unit),
       },
 
       {
-        id: "actions",
-        header: () => i18nRead("actions"),
+        id: "Actions",
+        header: () => "actions",
         cell: ({ row }) => {
           const isLatest = row.index === 0;
           return (
@@ -63,7 +62,7 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
         },
       },
     ],
-    [unit, onEdit, onDelete, i18nRead]
+    [unit, onEdit, onDelete]
   );
 
   // const [sorting, setSorting] = useState<SortingState>([]);

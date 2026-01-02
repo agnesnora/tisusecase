@@ -1,5 +1,5 @@
 "use client";
-import { useTranslations } from "next-intl";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiSolidDashboard } from "react-icons/bi";
@@ -8,7 +8,6 @@ import { TbMap2 } from "react-icons/tb";
 import styles from "../styles/Navbar.module.scss";
 
 const Navbar = () => {
-  const i18nNav = useTranslations("navigation");
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname.startsWith(path);
@@ -30,7 +29,7 @@ const Navbar = () => {
             }`}
           >
             <BiSolidDashboard className={styles.icon} />
-            <span>{i18nNav("dashboard")}</span>
+            <span>Dashboard</span>
           </div>
         </Link>
         <Link href="/map">
@@ -40,7 +39,7 @@ const Navbar = () => {
             }`}
           >
             <TbMap2 className={styles.icon} />
-            <span>{i18nNav("map")}</span>
+            <span>Map</span>
           </div>
         </Link>
         <Link href="/meters">
@@ -50,7 +49,7 @@ const Navbar = () => {
             }`}
           >
             <PiGaugeFill className={styles.icon} />
-            <span>{i18nNav("meters")}</span>
+            <span>Meters</span>
           </div>
         </Link>
       </nav>
