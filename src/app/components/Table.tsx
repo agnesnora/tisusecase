@@ -27,7 +27,7 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
       { accessorKey: "month", header: () => "Month" },
       {
         accessorKey: "value",
-        header: () => "reading",
+        header: () => "Reading",
         cell: (info) => `${info.getValue()}`,
       },
       {
@@ -38,7 +38,7 @@ const Table = ({ data, unit, onEdit, onDelete }: ReadingsTableProps) => {
 
       {
         id: "Actions",
-        header: () => "actions",
+        header: () => "Actions",
         cell: ({ row }) => {
           const isLatest = row.index === 0;
           return (
