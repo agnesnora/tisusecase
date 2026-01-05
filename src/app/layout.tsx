@@ -5,10 +5,12 @@ import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import "./globals.scss";
 import styles from "./Layout.module.scss";
+import { getLocale } from "next-intl/server";
 
 import Providers from "@/app/providers/Providers";
 
 import { ToastContainer } from "react-toastify";
+import { NextIntlClientProvider } from "next-intl";
 const bebasNeue = Bebas_Neue({
   weight: "400",
   subsets: ["latin"],
@@ -37,21 +39,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang="hu">
+    <html lang={locale}>
       <body
         className={`${bebasNeue.variable} ${plusJakartaSans.variable} ${inter.variable}`}
       >
-        <Providers>
-          <div className={styles.appContainer}>
-            <Navbar />
-            <div className={styles.mainContainer}>
-              <Header />
-              <main>{children}</main>
+        <NextIntlClientProvider>
+          {" "}
+          <Providers>
+            <div className={styles.appContainer}>
+              <Navbar />
+              <div className={styles.mainContainer}>
+                <Header />
+                <main>{children}</main>
+              </div>
             </div>
-          </div>
-          <ToastContainer />
-        </Providers>
+            <ToastContainer />
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

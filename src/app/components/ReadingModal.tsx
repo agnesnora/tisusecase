@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styles from "../styles/ReadingModal.module.scss";
 import { Button } from "./Button";
+import { useTranslations } from "next-intl";
 interface ReadingModalProps {
   currentReading: ReadingType | null;
   isOpen: boolean;
@@ -26,6 +27,7 @@ const ReadingModal = ({
   mode,
   allReadings,
 }: ReadingModalProps & { allReadings: ReadingType[] }) => {
+  const i18nEdit = useTranslations("actions");
   const {
     register,
     handleSubmit,
@@ -77,8 +79,10 @@ const ReadingModal = ({
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         <h3>
           {mode === "edit"
-            ? `Edit reading - ${currentReading.month} ${currentReading.year}`
-            : "Delete reading"}
+            ? `${i18nEdit("editReading")} - ${currentReading.month} ${
+                currentReading.year
+              }`
+            : i18nEdit("delete")}
         </h3>
         {mode === "edit" ? (
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -92,22 +96,22 @@ const ReadingModal = ({
             {errors.value && <span>{errors.value.message}</span>}
             <div className={styles.flex}>
               <Button type="submit" variant="success">
-                Save
+                {i18nEdit("save")}
               </Button>
               <Button type="button" variant="warning" onClick={onClose}>
-                Cancel
+                {i18nEdit("cancel")}
               </Button>
             </div>
           </form>
         ) : (
           <div>
-            <h2>Are you sure you want to delete this reading?</h2>
+            <h2>{i18nEdit("confirmation")}</h2>
             <div>
               <Button type="button" variant="danger" onClick={handleDelete}>
-                Delete
+                {i18nEdit("delete")}
               </Button>
               <Button type="button" variant="warning" onClick={onClose}>
-                Cancel
+                {i18nEdit("cancel")}
               </Button>
             </div>
           </div>

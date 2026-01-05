@@ -1,6 +1,14 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Itt adhatsz hozzá konfigurációkat ha szükséges
-};
+// /** @type {import('next').NextConfig} */
+// const nextConfig = {
+//   // Itt adhatsz hozzá konfigurációkat ha szükséges
+// };
 
-export default nextConfig;
+// export default nextConfig;
+import { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin();
+
+const config: NextConfig = {};
+
+export default withNextIntl(config);

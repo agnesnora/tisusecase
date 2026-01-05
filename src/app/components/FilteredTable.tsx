@@ -30,8 +30,11 @@ import styles from "../styles/FilteredTable.module.scss";
 import { getTypeStyle, MeterTypeEnum } from "@/utils/meterTypeStyles";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { formatUnit } from "@/utils/formatUnit";
+import { useTranslations } from "next-intl";
 
 const FilteredTable = () => {
+  const i18nMeters = useTranslations("meters");
+  const i18nPagination = useTranslations("pagination");
   const metersQuery = useQuery<MeterType[]>({
     queryKey: ["meters"],
     queryFn: fetchMetersList,
@@ -43,21 +46,25 @@ const FilteredTable = () => {
 
   const metersColumns: ColumnDef<MeterWithReadingsType>[] = useMemo(
     () => [
-      { accessorKey: "id", header: () => "id", enableSorting: true },
+      {
+        accessorKey: "id",
+        header: () => i18nMeters("id"),
+        enableSorting: true,
+      },
 
       {
         accessorKey: "label",
-        header: () => "label",
+        header: () => i18nMeters("label"),
         enableSorting: true,
       },
       {
-        header: () => "location",
+        header: () => i18nMeters("location"),
         accessorFn: (row) => `${row.location.lat}, ${row.location.lon}`,
         id: "location",
       },
       {
         accessorKey: "type",
-        header: () => "type",
+        header: () => i18nMeters("type"),
         enableSorting: true,
         cell: ({ row }) => {
           const type = row.original.type as MeterTypeEnum;
@@ -66,7 +73,7 @@ const FilteredTable = () => {
         },
       },
       {
-        header: () => "Latest reading",
+        header: () => i18nMeters("latestReading"),
         accessorFn: (row) => {
           const value = row.latestReading?.value;
           const unit = row.unit;
@@ -77,7 +84,7 @@ const FilteredTable = () => {
         enableSorting: true,
       },
     ],
-    []
+    [i18nMeters]
   );
   const router = useRouter();
 
@@ -110,7 +117,7 @@ const FilteredTable = () => {
   });
 
   if (metersQuery.isError || readingsQuery.isError) {
-    return <div>Error fetching data</div>;
+    return <div>{i18nMeters("fetchError")}</div>;
   }
 
   return (
@@ -125,7 +132,7 @@ const FilteredTable = () => {
         >
           {[5, 10, 20].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              {i18nPagination("show")} {pageSize}
             </option>
           ))}
         </select>
@@ -148,9 +155,9 @@ const FilteredTable = () => {
                 }}
                 className={`${styles.select} ${styles.typeSelect}`}
               >
-                <option value="">All types</option>
-                <option value="electricity">Electricity</option>
-                <option value="gas">Gas</option>
+                <option value="">{i18nMeters("allTypes")}</option>
+                <option value="electricity">{i18nMeters("electricity")}</option>
+                <option value="gas">{i18nMeters("gas")}</option>
               </select>
             </td>
             <td></td>
@@ -220,7 +227,7 @@ const FilteredTable = () => {
           }}
         >
           <span className={styles.spanFlexLeft}>
-            <BsArrowLeft /> Previous
+            <BsArrowLeft /> {i18nPagination("previous")}
           </span>
         </button>
 
@@ -249,7 +256,7 @@ const FilteredTable = () => {
         >
           <span className={styles.spanFlexRight}>
             <BsArrowRight />
-            Next
+            {i18nPagination("next")}
           </span>
         </button>
       </div>

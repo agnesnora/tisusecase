@@ -1,0 +1,125 @@
+{
+  "navigation": {
+    "dashboard": "Dashboard",
+    "meters": "Meters",
+    "map": "Map"
+  },
+  "map": {
+    "gasMeters": "Meters of Gas Consumption",
+    "electricityMeters": "Meters of Electricity Consumption",
+    "legend": "Legend"
+  },
+  "chart": {
+    "gasConsumption": "Gas Consumption",
+    "electricityConsumption": "Electricity Consumption",
+    "period": "Period"
+  },
+  "notFound": {
+    "title": "Sorry, we couldn't find the page you are looking for",
+    "error": "Not found 404",
+    "home": "Back home"
+  },
+  "loading": {
+    "loading": "Loading..."
+  },
+  "meters": {
+    "title": "Meters",
+    "id": "ID",
+    "label": "Label",
+    "location": "Location",
+    "type": "Type",
+    "unit": "Unit",
+    "latestReading": "Latest Reading",
+    "noData": "No data available",
+    "electricity": "Electricity",
+    "gas": "Gas",
+    "allTypes": "All Types",
+    "show": "Show",
+    "fetchError": "Error fetching data"
+  },
+  "readings": {
+    "title": "Readings",
+    "value": "Value",
+    "month": "Month",
+    "year": "Year",
+    "consumption": "Consumption",
+    "addReading": "Add Reading",
+    "editReading": "Edit Reading",
+    "deleteReading": "Delete Reading",
+    "reading": "Reading",
+    "unit": "Unit",
+    "actions": "Actions"
+  },
+  "details": {
+    "title": "Statistics",
+    "average": "Average Consumption",
+    "highest": "Highest",
+    "lowest": "Lowest",
+    "highestMonth": "Latest Highest Month",
+    "lowestMonth": "Latest Lowest Month",
+    "totalConsumption": "Total Consumption",
+    "monthlyAverage": "Monthly Average",
+    "addNewReadingToConsumer": "Add new reading to Consumer",
+    "addNew": "Add new reading",
+    "selectMonth": "Select month",
+    "value": "Value",
+    "noMore": "No readings can be added at this time.",
+    "loading": "Loading readings",
+    "errorLoadingReadings": "Error loading readings",
+    "noData": "No data available",
+    "meterNotFound": "Meter not found"
+  },
+  "toast": {
+    "readingSaved": "Reading saved successfully!",
+    "readingDeleted": "Reading deleted successfully!",
+    "readingAdded": "Reading added successfully!",
+    "readingNotAdded": "Failed to add reading",
+    "readingNotSaved": "Failed to save reading",
+    "readingNotDeleted": "Failed to delete reading",
+    "validationError": "Validation error: Please check the value!",
+    "lowerThan": "Value cannot be lower than the previous reading"
+  },
+  "actions": {
+    "editReading": "Edit Reading",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete Reading",
+    "confirmation": "Are you sure you want to delete this reading?",
+
+    "validationError": "Validation error: Please check the value!"
+  },
+
+  "validation": {
+    "required": "This field is required",
+    "positive": "Value must be positive",
+    "maxValue": "Value seems unrealistically high (max {{max}})",
+    "monotonic": {
+      "greaterThanPrevious": "Value must be greater than or equal to the previous reading {{value}} ({{month}} {{year}})",
+      "lessThanNext": "Value must be less than or equal to the next reading {{value}} ({{month}} {{year}})"
+    }
+  },
+  "pagination": {
+    "show": "Show",
+
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "months": {
+    "JAN": "January",
+    "FEB": "February",
+    "MAR": "March",
+    "APR": "April",
+    "MAY": "May",
+    "JUN": "June",
+    "JUL": "July",
+    "AUG": "August",
+    "SEP": "September",
+    "OCT": "October",
+    "NOV": "November",
+    "DEC": "December"
+  },
+  "units": {
+    "kWh": "kWh",
+    "m3": "m³"
+  }
+}

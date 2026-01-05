@@ -413,18 +413,8 @@
       "value": 221
     },
     {
-      "id": "31",
-      "meterId": "0002",
-      "month": "AUG",
-      "year": 2025,
-      "value": 234
-    },
-    {
-      "id": "32",
-      "meterId": "0002",
-      "month": "SEP",
-      "year": 2025,
-      "value": 246
+      "value": 247,
+      "id": "32"
     },
     {
       "id": "33",
@@ -721,13 +711,6 @@
       "month": "AUG",
       "year": 2025,
       "value": 1575
-    },
-    {
-      "id": "80",
-      "meterId": "0005",
-      "month": "SEP",
-      "year": 2025,
-      "value": 1645
     },
     {
       "id": "81",
@@ -2408,6 +2391,20 @@
       "year": 2025,
       "value": 123,
       "meterId": "0006"
+    },
+    {
+      "id": "1dc6",
+      "month": "SEP",
+      "year": 2025,
+      "value": 1645,
+      "meterId": "0005"
+    },
+    {
+      "id": "d650",
+      "month": "AUG",
+      "year": 2025,
+      "value": 234,
+      "meterId": "0002"
     }
   ]
 }

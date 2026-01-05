@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useTranslations } from "next-intl";
 import styles from "../styles/ConsumptionChart.module.scss";
 interface ConsumptionChartProps {
   data: {
@@ -35,6 +36,8 @@ const colors = [
 ];
 
 const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
+  const i18nChart = useTranslations("chart");
+
   const meterIds = React.useMemo(() => {
     const keys = new Set<string>();
     data.forEach((item) => {
@@ -50,7 +53,9 @@ const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
   return (
     <div className={styles.wrapper}>
       <h2>
-        {type === "electricity" ? "Electricity consumption" : "Gas consumption"}
+        {type === "electricity"
+          ? i18nChart("electricityConsumption")
+          : i18nChart("gasConsumption")}
       </h2>
       <BarChart
         responsive
@@ -97,7 +102,7 @@ const ConsumptionChart = ({ data, unit, type }: ConsumptionChartProps) => {
           labelFormatter={(value) => {
             if (!value) return "";
             const [year, month] = value.split("-");
-            return `Period: ${month}/${year}`;
+            return `${i18nChart("period")}: ${month}/${year}`;
           }}
         />
         <Legend

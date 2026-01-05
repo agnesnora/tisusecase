@@ -6,9 +6,11 @@ import { BiSolidDashboard } from "react-icons/bi";
 import { PiGaugeFill } from "react-icons/pi";
 import { TbMap2 } from "react-icons/tb";
 import styles from "../styles/Navbar.module.scss";
+import { useTranslations } from "next-intl";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const i18nNav = useTranslations("navigation");
 
   const isActive = (path: string) => pathname.startsWith(path);
   return (
@@ -29,7 +31,7 @@ const Navbar = () => {
             }`}
           >
             <BiSolidDashboard className={styles.icon} />
-            <span>Dashboard</span>
+            <span>{i18nNav("dashboard")}</span>
           </div>
         </Link>
         <Link href="/map">
@@ -39,7 +41,7 @@ const Navbar = () => {
             }`}
           >
             <TbMap2 className={styles.icon} />
-            <span>Map</span>
+            <span>{i18nNav("map")}</span>
           </div>
         </Link>
         <Link href="/meters">
@@ -49,7 +51,7 @@ const Navbar = () => {
             }`}
           >
             <PiGaugeFill className={styles.icon} />
-            <span>Meters</span>
+            <span>{i18nNav("meters")}</span>
           </div>
         </Link>
       </nav>

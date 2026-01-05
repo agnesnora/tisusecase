@@ -4,20 +4,23 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { PiMoonStarsFill, PiSunDimFill } from "react-icons/pi";
 import styles from "../styles/Header.module.scss";
-// import LanguageSwitcher from "./LanguageSwitcher";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { useTheme } from "./ThemeProvider";
+import { useTranslations } from "next-intl";
+
 const Header = () => {
+  const i18nNav = useTranslations("navigation");
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
 
   let pageTitle;
 
   if (pathname === "/dashboard") {
-    pageTitle = "Dashboard";
+    pageTitle = i18nNav("dashboard");
   } else if (pathname === "/map") {
-    pageTitle = "Map";
+    pageTitle = i18nNav("map");
   } else if (pathname.startsWith("/meters")) {
-    pageTitle = "Meters";
+    pageTitle = i18nNav("meters");
   }
 
   return (
@@ -27,7 +30,7 @@ const Header = () => {
       </div>
       <div>
         <div className={styles.profileContainer}>
-          {/* <LanguageSwitcher /> */}
+          <LanguageSwitcher />
           <button className={styles.btn} onClick={toggleTheme}>
             {theme === "light" ? (
               <PiMoonStarsFill

@@ -1,0 +1,125 @@
+{
+  "navigation": {
+    "dashboard": "Irányítópult",
+    "meters": "Mérőórák",
+    "map": "Térkép"
+  },
+  "map": {
+    "gasMeters": "Gázfogyasztás mérők",
+    "electricityMeters": "Áramfogyasztás mérők",
+    "legend": "Jelmagyarázat"
+  },
+  "chart": {
+    "gasConsumption": "Gázfogyasztás",
+    "electricityConsumption": "Áramfogyasztás",
+    "period": "Időintervallum"
+  },
+  "meters": {
+    "title": "Mérők",
+    "id": "Azonosító",
+    "label": "Címke",
+    "location": "Helyszín",
+    "type": "Típus",
+    "unit": "Mértékegység",
+    "latestReading": "Legutóbbi leolvasás",
+    "noData": "Nincs elérhető adat",
+    "electricity": "Villany",
+    "gas": "Gáz",
+    "allTypes": "Minden Típus",
+    "show": "Megjelenítés",
+    "fetchError": "Hiba az adat letöltésével"
+  },
+  "readings": {
+    "title": "Leolvasások",
+    "value": "Érték",
+    "month": "Hónap",
+    "year": "Év",
+    "consumption": "Fogyasztás",
+    "addReading": "Leolvasás Hozzáadása",
+    "editReading": "Leolvasás Szerkesztése",
+    "deleteReading": "Leolvasás Törlése",
+    "reading": "Leolvasás",
+    "unit": "Mértékegység",
+    "actions": "Műveletek"
+  },
+  "notFound": {
+    "title": "Sajnáljuk, a keresett oldal nem található",
+    "error": "Nem található 404",
+    "home": "Vissza a főoldalra"
+  },
+  "loading": {
+    "loading": "Az oldal töltődik..."
+  },
+  "details": {
+    "title": "Statisztikák",
+    "average": "Átlagos fogyasztás",
+    "highest": "Legmagasabb",
+    "lowest": "Legalacsonyabb",
+    "highestMonth": "Legutolsó legmagasabb hónap",
+    "lowestMonth": "Legutolsó legalacsonyabb hónap",
+    "totalConsumption": "Összes Fogyasztás",
+    "monthlyAverage": "Havi Átlag",
+    "addNewReadingToConsumer": "Új fogyasztás hozzáadása a fogyasztóhoz",
+    "addNew": "Új érték hozzáadása",
+    "selectMonth": "Hónap kiválasztása",
+    "value": "Érték",
+    "noMore": "Jelenleg nem adható hozzá több mérés",
+    "loading": "Leolvasások betöltése",
+    "errorLoadingReadings": "Leolvasások betöltése sikertelen",
+    "noData": "Nincs elérhető adat",
+    "meterNotFound": "Meter not found"
+  },
+
+  "toast": {
+    "readingSaved": "Mérés sikeresen mentve",
+    "readingDeleted": "Mérés sikeresen törölve",
+    "readingNotSaved": "Mérés mentése sikertelen",
+    "readingAdded": "Mérés sikeresen hozzáadva!",
+    "readingNotAdded": "Mérés hozzáadása sikertelen",
+    "readingNotDeleted": "Mérés törlése sikertelen",
+    "lowerThan": "Az érték nem lehet kevesebb, mint az előző hónap értéke",
+    "validationError": "Hitelesítési hiba, nézd meg az értéket"
+  },
+  "actions": {
+    "editReading": "Mérés szerkesztése",
+    "save": "Mentés",
+    "cancel": "Visszavonás",
+    "delete": "Mérés törlése",
+    "confirmation": "Biztosan törölni akarja a mérést?",
+    "validationError": "Hitelesítési hiba, nézd meg az értéket"
+  },
+
+  "validation": {
+    "required": "Ez a mező kötelező",
+    "positive": "Az értéknek pozitívnak kell lennie",
+    "maxValue": "Az érték irreálisan magasnak tűnik (max {{max}})",
+    "monotonic": {
+      "greaterThanPrevious": "Az értéknek nagyobbnak vagy egyenlőnek kell lennie az előző leolvasásnál {{value}} ({{month}} {{year}})",
+      "lessThanNext": "Az értéknek kisebbnek vagy egyenlőnek kell lennie a következő leolvasásnál {{value}} ({{month}} {{year}})"
+    }
+  },
+  "pagination": {
+    "show": "Megjelenítés",
+
+    "next": "Következő",
+    "previous": "Előző"
+  },
+  "months": {
+    "JAN": "Január",
+    "FEB": "Február",
+    "MAR": "Március",
+    "APR": "Április",
+    "MAY": "Május",
+    "JUN": "Június",
+    "JUL": "Július",
+    "AUG": "Augusztus",
+    "SEP": "Szeptember",
+    "OCT": "Október",
+    "NOV": "November",
+    "DEC": "December"
+  },
+  "units": {
+    "kWh": "kWh",
+    "m3": "m³"
+  }
+}

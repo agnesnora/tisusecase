@@ -1,11 +1,13 @@
 import Link from "next/link";
 import styles from "./not-found.module.scss";
+import { useTranslations } from "next-intl";
 export default function NotFound() {
+  const i18nNotFound = useTranslations("notFound");
   return (
     <div className={styles.container}>
-      <h2>Sorry, we couldn’t find the page you’re looking for</h2>
-      <p>Not found 404</p>
-      <Link href="/">Back home</Link>
+      <h2>{i18nNotFound("title")}</h2>
+      <p>{i18nNotFound("error")}</p>
+      <Link href="/">{i18nNotFound("home")}</Link>
     </div>
   );
 }

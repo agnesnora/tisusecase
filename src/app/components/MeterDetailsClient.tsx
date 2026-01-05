@@ -29,11 +29,14 @@ import { Button } from "./Button";
 import { InfoBox } from "./InfoBox";
 import ReadingModal from "./ReadingModal";
 import Table from "./Table";
+import { useTranslations } from "next-intl";
 interface MeterDetailsClientProps {
   meter: MeterType;
 }
 
 const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
+  const i18nDetail = useTranslations("details");
+  const i18nToast = useTranslations("toast");
   const queryClient = useQueryClient();
   const [editingReading, setEditingReading] = useState<ReadingType | null>(
     null
@@ -57,10 +60,10 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     mutationFn: deleteReadingById,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
-      toast.success("Reading is deleted successfully");
+      toast.success(i18nToast("readingDeleted"));
     },
     onError: () => {
-      toast.error("Failed to delete reading");
+      toast.error(i18nToast("readingNotDeleted"));
     },
   });
 
@@ -69,10 +72,10 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
       reset();
-      toast.success("Reading saved successfully");
+      toast.success(i18nToast("readingAdded"));
     },
     onError: () => {
-      toast.error("Failed to save reading");
+      toast.error(i18nToast("readingNotAdded"));
     },
   });
 
@@ -95,11 +98,11 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
               reading.id === variables.id ? updatedReading : reading
             ) || []
         );
-        toast.success("Reading successfully saved");
+        toast.success(i18nToast("readingSaved"));
       }
     },
     onError: () => {
-      toast.error("Failed to save reading");
+      toast.error(i18nToast("readingNotSaved"));
     },
   });
   const {
@@ -141,9 +144,12 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     if (latestReading && data.value < latestReading.value) {
       setError("value", {
         type: "manual",
-        message: `Value cannot be lower than the previous reading (${latestReading.value})`,
+        message: `${i18nToast("lowerThan")} (${latestReading.value})`,
       });
-      toast.warning("Validation Error");
+      toast.warning(i18nToast("validationError"));
+      setTimeout(() => {
+        setError("value", { type: "manual", message: "" });
+      }, 3000);
       return;
     }
     const newReading = {
@@ -174,9 +180,11 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
     setDeletingReading(null);
   };
   const sortedReadings = [...readings].sort(orderReadingsDesc);
-
-  if (isLoading) return <div>Loading readings...</div>;
-  if (error) return <div>Error loading readings</div>;
+  if (!meter) {
+    return <div>{i18nDetail("meterNotFound")}</div>;
+  }
+  if (isLoading) return <div>{i18nDetail("loading")}</div>;
+  if (error) return <div>{i18nDetail("errorLoadingReadings")}</div>;
 
   return (
     <div className={styles.container}>
@@ -184,21 +192,23 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
 
       <div className={styles.statistics}>
         <InfoBox
-          title="Average Consumption"
+          title={i18nDetail("average")}
           subtitle={`${
-            stats.average !== undefined ? stats.average.toFixed(2) : "No data"
+            stats.average !== undefined
+              ? stats.average.toFixed(2)
+              : i18nDetail("noData")
           } ${meter.unit}`}
           variant="average"
         />
         <InfoBox
-          title="Latest Highest Consumption"
+          title={i18nDetail("highestMonth")}
           subtitle={`${stats.highestMonth?.month}
           ${stats.highestMonth?.year}`}
           variant="highest"
           value={`${stats.highest} ${formatUnit(meter.unit)}`}
         />
         <InfoBox
-          title="Latest Lowest Consumption"
+          title={i18nDetail("lowestMonth")}
           subtitle={`${stats.lowestMonth?.month}
           ${stats.lowestMonth?.year}`}
           variant="lowest"
@@ -206,7 +216,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         />
       </div>
       <div className={styles.addReading}>
-        <h3>Add new reading to consumer</h3>
+        <h3>{i18nDetail("addNewReadingToConsumer")}</h3>
         <form className={styles.form} onSubmit={handleSubmit(handleAddReading)}>
           {availableDates.length > 0 ? (
             <>
@@ -216,7 +226,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
                 className={styles.select}
               >
                 <option value="" disabled>
-                  Select Month
+                  {i18nDetail("selectMonth")}
                 </option>
                 {availableDates.map((date) => (
                   <option
@@ -239,16 +249,16 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
                 {...register("value", { valueAsNumber: true })}
                 type="number"
                 step="any"
-                placeholder="Value"
+                placeholder={i18nDetail("value")}
                 className={styles.valueInput}
               />
               <Button type="submit" disabled={addReadingMutation.isPending}>
                 {" "}
-                Add new reading
+                {i18nDetail("addNew")}
               </Button>
             </>
           ) : (
-            <p>No readings can be added at this time.</p>
+            <p>{i18nDetail("noMore")}</p>
           )}
           {errors.value && <span>{errors.value.message}</span>}
         </form>
