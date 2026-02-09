@@ -17,9 +17,9 @@ const Navbar = () => {
     <div className={styles.container}>
       <Link href="/">
         <h1>
-          Agnesnora
+          ETS
           <br />
-          Studio.
+          Energy System.
         </h1>
       </Link>
       <nav>

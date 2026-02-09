@@ -42,15 +42,15 @@ const Header = () => {
             )}
           </button>
           <Image
-            src="/ProfilePicturePalasthy small.png"
+            src="/profile.png"
             width={40}
             height={40}
             alt="profile picture"
             className={styles.profilePic}
           />
           <div className={styles.profileInfo}>
-            <h4>Ágnes Kuti-Palásthy</h4>
-            <p>Frontend Developer</p>
+            <h4>Lora Miles</h4>
+            <p>Admin Support Manager</p>
           </div>
         </div>
 
