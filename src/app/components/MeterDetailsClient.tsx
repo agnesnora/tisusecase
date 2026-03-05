@@ -39,10 +39,10 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
   const i18nToast = useTranslations("toast");
   const queryClient = useQueryClient();
   const [editingReading, setEditingReading] = useState<ReadingType | null>(
-    null
+    null,
   );
   const [deletingReading, setDeletingReading] = useState<ReadingType | null>(
-    null
+    null,
   );
 
   const {
@@ -68,7 +68,8 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
   });
 
   const addReadingMutation = useMutation({
-    mutationFn: addReading,
+    mutationFn: (variables: { meterId: string; data: AddReadingType }) =>
+      addReading(variables),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["readings", meter.id] });
       reset();
@@ -95,8 +96,8 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
           ["readings", meter.id],
           (oldData: ReadingType[]) =>
             oldData?.map((reading) =>
-              reading.id === variables.id ? updatedReading : reading
-            ) || []
+              reading.id === variables.id ? updatedReading : reading,
+            ) || [],
         );
         toast.success(i18nToast("readingSaved"));
       }
@@ -135,7 +136,7 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
         | "SEP"
         | "OCT"
         | "NOV"
-        | "DEC"
+        | "DEC",
     );
   };
 
@@ -152,11 +153,10 @@ const MeterDetailsClient = ({ meter }: MeterDetailsClientProps) => {
       }, 3000);
       return;
     }
-    const newReading = {
-      ...data,
+    addReadingMutation.mutate({
       meterId: meter.id,
-    };
-    addReadingMutation.mutate(newReading);
+      data,
+    });
   };
 
   const handleEdit = (reading: ReadingType) => {
