@@ -1,19 +1,49 @@
-import apiClient from "../apiClient";
+import { supabase } from "./supaBaseClient";
 import { MeterType } from "@/schemas/meters";
+type MeterRow = {
+  id: string;
+  label: string;
+  type: "electricity" | "gas";
+  unit: "kWh" | "m3";
+  location_lat: number;
+  location_lon: number;
+  created_at: string;
+};
+
+const toMeterType = (row: MeterRow): MeterType => ({
+  id: row.id,
+  label: row.label,
+  type: row.type,
+  unit: row.unit,
+  location: {
+    lat: row.location_lat,
+    lon: row.location_lon,
+  },
+});
 
 export const fetchMetersList = async (): Promise<MeterType[]> => {
-  const response = await apiClient.get("/meters");
+  const { data, error } = await supabase.from("meters").select("*");
 
-  return response.data;
+  if (error) {
+    console.error("Error fetching meters:", error);
+    throw error;
+  }
+
+  // Itt már Type Assertion-t (as) használunk, hogy a TS tudja, a data MeterRow[]
+  return (data as MeterRow[]).map(toMeterType);
 };
 
 export const fetchMeterById = async (id: string): Promise<MeterType> => {
-  const response = await apiClient.get(`/meters/${id}`);
-  const meter = response.data;
+  const { data, error } = await supabase
+    .from("meters")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  if (!meter) {
+  if (error) {
+    console.error(`Error fetching meter ${id}:`, error);
     throw new Error(`Meter with id ${id} not found`);
   }
 
-  return meter;
+  return toMeterType(data as MeterRow);
 };
