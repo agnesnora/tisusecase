@@ -1,7 +1,7 @@
 import axios from "axios";
 import fallbackData from "../../db 1.json";
 const apiClient = axios.create({
-  // baseURL: "http://localhost:3001", // json mock server
+  // baseURL: "http://localhost:3000", // json mock server
   baseURL: "https://meter-mock-json.onrender.com", // json mock server
   headers: {
     "Content-Type": "application/json",
